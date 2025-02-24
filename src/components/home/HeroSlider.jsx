@@ -17,7 +17,7 @@ const HeaderSlider = () => {
   };
 
   return ( 
-    <div className="overflow-hidden relative w-full rounded-xl">
+    <div className="overflow-hidden relative w-full rounded-xl mt-20">
       <div
         className="flex transition-transform duration-700 ease-in-out rounded-xl"
         style={{

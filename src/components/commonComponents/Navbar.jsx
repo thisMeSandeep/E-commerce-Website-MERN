@@ -10,8 +10,8 @@ const Navbar = () => {
   const user = false;
 
   return (
-    <header className="py-4 md:py-5 border-b border-gray-300 text-gray-700 fixe top-0  z-10">
-      <nav className="container flex items-center justify-between gap-3 md:gap-5 lg:gap-8">
+    <header className="py-4 md:py-5 border-b border-gray-300 text-gray-700 fixed top-0 left-0 right-0  z-10 bg-white z-30">
+      <nav className="container flex items-center justify-between gap-3 md:gap-5 lg:gap-8 ">
         {/* logo */}
         <Link to="/"> <img src={assets.logo} alt="logo" className="w-28 md:w-32" /></Link>
 
