@@ -1,8 +1,11 @@
+import HeroSlider from "../components/home/HeroSlider"
 
 
 const HomePage = () => {
   return (
-    <div></div>
+    <section className="container mt-5">
+      <HeroSlider />
+    </section>
   )
 }
 
