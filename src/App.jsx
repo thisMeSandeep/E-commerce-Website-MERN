@@ -10,6 +10,7 @@ import ShoppingCard from "./pages/ShoppingCard"
 import ShopPage from "./pages/ShopPage"
 import ContactPage from "./pages/ContactPage"
 import UserProfile from "./pages/UserProfile"
+import MyOrdersPage from "./pages/MyOrdersPage"
 
 
 
@@ -25,12 +26,13 @@ const App = () => {
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/login" element={<SignInPage />} />
         <Route path="/register" element={<SignUpPage />} />
-        <Route path="/product-details:pid" element={<ProductDetailPage />} />
+        <Route path="/product-details/:pid" element={<ProductDetailPage />} />
         <Route path="/cart" element={<ShoppingCard />} />
         <Route path="/profile" element={<UserProfile />} />
+        <Route path="/orders" element={<MyOrdersPage />} />
       </Routes >
 
-      <Footer />
+      {/* <Footer /> */}
     </>
   )
 }
