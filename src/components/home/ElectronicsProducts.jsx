@@ -19,7 +19,7 @@ const ElectronicsProducts = () => {
         <div className="my-10">
             <h1 className="text-2xl font-medium text-gray-700">Electronics</h1>
 
-            <div className="mt-10 grid grid-cols-2 gap-8 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+            <div className="mt-10 grid grid-cols-2 gap-8 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 place-items-center">
                 {
                     electronics.slice(0, 10).map((product) => (
                         <ProductCard key={product.id} product={product} />

@@ -1,31 +1,8 @@
-import { CircleHelp, Headphones,  MapPin,  Phone, RefreshCcw } from "lucide-react";
-
+import { CircleHelp, Headphones, MapPin, Phone, RefreshCcw } from "lucide-react";
+import categories from "../../data/categories";
 
 const HeaderNav2 = () => {
 
-  const categories = [
-    "all-category",
-    "smartphones",
-    "laptops",
-    "fragrances",
-    "skincare",
-    "groceries",
-    "home-decoration",
-    "furniture",
-    "tops",
-    "womens-dresses",
-    "womens-shoes",
-    "mens-shirts",
-    "mens-shoes",
-    "mens-watches",
-    "womens-watches",
-    "womens-bags",
-    "womens-jewellery",
-    "sunglasses",
-    "automotive",
-    "motorcycle",
-    "lighting"
-  ];
 
 
   return (
@@ -72,7 +49,7 @@ const HeaderNav2 = () => {
       {/* Mobile number */}
       <p className="flex items-center gap-2">
         <Phone className="size-4" />
-        <p className="hidden lg:inline">91 + 9305787990</p>
+        <span className="hidden lg:inline">91 + 9305787990</span>
       </p>
 
     </div>

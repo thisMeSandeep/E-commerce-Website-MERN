@@ -23,7 +23,7 @@ const RegisterPage = () => {
       setError("Passwords do not match!");
       return;
     }
-    setError(""); // Clear error if passwords match
+    setError(""); 
     console.log("Form submitted:", formData); // Replace this with actual registration logic
   };
 
