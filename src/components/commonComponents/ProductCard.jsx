@@ -1,12 +1,12 @@
 
 import { assets } from "../../assets/assets"
-
+import { Link } from "react-router-dom"
 
 const ProductCard = ({product}) => {
 
 
     return (
-        <div className="flex flex-col items-start gap-0.5 max-w-[200px] w-full cursor-pointer"
+        <Link to={`/product-details/${product.id}`} className="flex flex-col items-start gap-0.5 max-w-[200px] w-full cursor-pointer"
         >
             <div className="cursor-pointer group relative bg-gray-500/10 rounded-lg w-full h-52 flex items-center justify-center">
                 <img
@@ -49,7 +49,7 @@ const ProductCard = ({product}) => {
                     Buy now
                 </button>
             </div>
-        </div>
+        </Link>
     )
 }
 

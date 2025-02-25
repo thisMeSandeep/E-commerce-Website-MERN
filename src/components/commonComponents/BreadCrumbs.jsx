@@ -8,6 +8,8 @@ const BreadCrumbs = () => {
             <span>Shop</span>
             <ChevronRight className="size-5" />
             <span>All Categories</span>
+            <ChevronRight className="size-5" />
+            <span>All Categories</span>
         </div>
     )
 }
