@@ -1,30 +1,66 @@
-import Search from "./Search"
-import { assets, CartIcon } from "../../assets/assets"
+// import Search from "./Search"
+import { assets } from "../../assets/assets"
 import { Link } from "react-router-dom"
-import { LogIn, LogOut, Settings, ShoppingBag, ShoppingCart } from "lucide-react"
+import { LogOut, Menu, Settings, ShoppingBag, ShoppingCart, X } from "lucide-react"
 import { useState } from "react"
+import HeaderNav2 from "./HeaderNav2"
+
+const navItems = [
+  {
+    path: "/",
+    name: "Home"
+  },
+  {
+    path: "/products",
+    name: "Shop"
+  },
+  {
+    path: "/about",
+    name: "About Us"
+  },
+  {
+    path: "/contact",
+    name: "Contact"
+  }
+]
+
 
 const Navbar = () => {
   const [showDropdown, setShowDropdown] = useState(false);
+  const [toggleMenu, setToggleMenu] = useState(false);
 
   const user = false;
 
   return (
-    <header className="py-4 md:py-5 border-b border-gray-300 text-gray-700 fixed top-0 left-0 right-0  z-10 bg-white z-30">
-      <nav className="container flex items-center justify-between gap-3 md:gap-5 lg:gap-8 ">
+    <header className="text-gray-700 fixed top-0 left-0 right-0  bg-white z-30">
+
+      <nav className="py-4 md:py-5 container border-b border-gray-300 flex items-center justify-between gap-3 md:gap-5 lg:gap-8 relative">
+
         {/* logo */}
         <Link to="/"> <img src={assets.logo} alt="logo" className="w-28 md:w-32" /></Link>
 
-        {/* search bar */}
-        <Search />
 
-        {/* Navlinks */}
+        {/* Navlinks desktop */}
         <ul className="hidden lg:flex items-center gap-4 lg:gap-8">
-          <Link to="/" className="hover:text-gray-900 transition">Home</Link>
-          <Link to="/products" className="hover:text-gray-900 transition">Shop</Link>
-          <Link to="about" className="hover:text-gray-900 transition">About Us</Link>
-          <Link to="contact" className="hover:text-gray-900 transition">Contact</Link>
+          {
+            navItems.map((nav) => (
+              <Link to={nav.path} key={nav.name} className="text-gray-600 hover:text-gray-900">{nav.name}</Link>
+            ))
+          }
         </ul>
+
+        {/* Navlinks mobile*/}
+        {toggleMenu ? <X className="lg:hidden ml-auto cursor-pointer" onClick={() => setToggleMenu(prev => !prev)} /> : <Menu className="lg:hidden ml-auto cursor-pointer" onClick={() => setToggleMenu(prev => !prev)} />}
+
+        <ul className={`absolute  ${toggleMenu ? "flex" : "hidden"} flex-col items-center justify-center gap-4 lg:gap-8  top-14 sm:top-14 right-0 left-0 border w-full h-screen bg-white z-20`}>
+          {
+            navItems.map((nav) => (
+              <Link to={nav.path} key={nav.name} className="text-gray-600 hover:text-gray-900" onClick={() => setToggleMenu(false)}>{nav.name}</Link>
+            ))
+          }
+        </ul>
+
+
 
 
         {/* login/profile */}
@@ -60,6 +96,7 @@ const Navbar = () => {
         }
 
       </nav>
+      <HeaderNav2 />
     </header>
   )
 }

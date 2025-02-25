@@ -14,10 +14,12 @@ import MyOrdersPage from "./pages/MyOrdersPage"
 
 
 
+
 const App = () => {
   return (
     <>
       <Navbar />
+
 
       <Routes>
         <Route path="/" element={<HomePage />} />
