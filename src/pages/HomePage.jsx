@@ -1,6 +1,8 @@
 import ElectronicsProducts from "../components/home/ElectronicsProducts"
 import HeroSlider from "../components/home/HeroSlider"
 import PopularProducts from "../components/home/PopularProducts"
+import ExploreCategories from "../components/home/ExploreCategories"
+import FeaturedProducts from "../components/home/FeaturedProducts"
 
 
 const HomePage = () => {
@@ -9,6 +11,8 @@ const HomePage = () => {
       <HeroSlider />
       <PopularProducts />
       <ElectronicsProducts />
+      <ExploreCategories />
+      <FeaturedProducts />
     </section>
   )
 }
