@@ -2,13 +2,13 @@ import ProductCard from "../commonComponents/ProductCard"
 import useProductStore from "../../store/productStore";
 import { useStore } from "zustand";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const ElectronicsProducts = () => {
 
     const { products } = useStore(useProductStore);
-
-
     const [electronics, setElectronics] = useState([]);
+    const navigate=useNavigate();
 
     useEffect(() => {
         const electronicProducts = products.filter((item) => item.category === "smartphones" || item.category === "mens-watches");
@@ -27,7 +27,7 @@ const ElectronicsProducts = () => {
                 }
             </div>
 
-            <button className="block mx-auto mt-10 border px-10 py-2 rounded-lg shadow text-gray-600  transition hover:bg-gray-100">Explore more</button>
+            <button className="block mx-auto mt-10 border px-10 py-2 rounded-md  text-gray-600  transition hover:bg-gray-100" onClick={() =>navigate("/products")}>Explore more</button>
 
         </div>
     )
