@@ -4,7 +4,7 @@ import { CircleHelp, Headphones,  MapPin,  Phone, RefreshCcw } from "lucide-reac
 const HeaderNav2 = () => {
 
   const categories = [
-    "All category",
+    "all-category",
     "smartphones",
     "laptops",
     "fragrances",
@@ -34,7 +34,7 @@ const HeaderNav2 = () => {
       <div className=" flex items-center gap-5 md:gap-8">
 
         {/* category selection */}
-        <select className="w-full p-2 border border-gray-300 rounded-lg bg-white text-gray-700 focus:outline-none cursor-pointer no-scrollbar ">
+        <select className="w-full  rounded-lg bg-white text-gray-700 focus:outline-none cursor-pointer no-scrollbar ">
           {categories.map((item, index) => (
             <option value={item} key={index} className="text-gray-700">
               {item.replace(/-/g, " ")}

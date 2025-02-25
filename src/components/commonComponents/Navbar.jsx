@@ -4,6 +4,8 @@ import { Link } from "react-router-dom"
 import { LogOut, Menu, Settings, ShoppingBag, ShoppingCart, X } from "lucide-react"
 import { useState } from "react"
 import HeaderNav2 from "./HeaderNav2"
+import useUserStore from "../../store/userStore"
+import { useStore } from "zustand"
 
 const navItems = [
   {
@@ -28,8 +30,7 @@ const navItems = [
 const Navbar = () => {
   const [showDropdown, setShowDropdown] = useState(false);
   const [toggleMenu, setToggleMenu] = useState(false);
-
-  const user = false;
+  const { user } = useStore(useUserStore);
 
   return (
     <header className="text-gray-700 fixed top-0 left-0 right-0  bg-white z-30">

@@ -1,7 +1,11 @@
-import ProductCard from "../commonComponents/productCard";
-import products from "../../data/productData";
+import ProductCard from "../commonComponents/ProductCard";
+import useProductStore from "../../store/productStore";
+import { useStore } from "zustand";
 
 const PopularProducts = () => {
+
+    const { products } = useStore(useProductStore);
+
     return (
         <div className="my-10">
             <h1 className="text-2xl font-medium text-gray-700">Popular Products</h1>

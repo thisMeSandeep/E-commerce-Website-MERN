@@ -1,15 +1,19 @@
-import ProductCard from "../commonComponents/productCard";
-import products from "../../data/productData";
+import ProductCard from "../commonComponents/ProductCard"
+import useProductStore from "../../store/productStore";
+import { useStore } from "zustand";
 import { useEffect, useState } from "react";
 
 const ElectronicsProducts = () => {
+
+    const { products } = useStore(useProductStore);
+
 
     const [electronics, setElectronics] = useState([]);
 
     useEffect(() => {
         const electronicProducts = products.filter((item) => item.category === "smartphones" || item.category === "mens-watches");
         setElectronics(electronicProducts);
-    }, [])
+    }, [products])
 
     return (
         <div className="my-10">
