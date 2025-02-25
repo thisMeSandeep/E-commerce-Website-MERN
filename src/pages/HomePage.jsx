@@ -3,6 +3,8 @@ import HeroSlider from "../components/home/HeroSlider"
 import PopularProducts from "../components/home/PopularProducts"
 import ExploreCategories from "../components/home/ExploreCategories"
 import FeaturedProducts from "../components/home/FeaturedProducts"
+import Gaming from "../components/home/Gaming"
+import Newsletter from "../components/commonComponents/Newletter"
 
 
 const HomePage = () => {
@@ -13,6 +15,8 @@ const HomePage = () => {
       <ElectronicsProducts />
       <ExploreCategories />
       <FeaturedProducts />
+      <Gaming />
+      <Newsletter />
     </section>
   )
 }
