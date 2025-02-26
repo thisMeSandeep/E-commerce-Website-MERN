@@ -1,6 +1,8 @@
 import { useState } from "react";
+import { assets } from "../../assets/assets";
 
 const MainProduct = ({ product }) => {
+
     const [addToCart, setAddToCart] = useState({
         productId: "",
         quantity: null,
@@ -27,7 +29,7 @@ const MainProduct = ({ product }) => {
             {/* Image section */}
             <div className="flex flex-col items-center gap-5">
                 <div
-                    className="border w-[300px] h-[300px] md:w-[500px] md:h-[500px] rounded-md shadow relative overflow-hidden cursor-grab"
+                    className="border w-full h-[500px] md:w-[500px] md:h-[500px] rounded-md shadow relative overflow-hidden cursor-grab"
                     onMouseEnter={() => setZoom(true)}
                     onMouseLeave={() => setZoom(false)}
                     onMouseMove={handleMouseMove}
@@ -41,6 +43,14 @@ const MainProduct = ({ product }) => {
                             objectPosition: "50% 50%",
                         }}
                     />
+                    {/* wishlist button */}
+                    <button className="absolute top-2 right-2 bg-white p-2 rounded-full shadow-md hover:scale-105 ">
+                        <img
+                            className="h-3 w-3"
+                            src={assets.heart_icon}
+                            alt="heart_icon"
+                        />
+                    </button>
                 </div>
 
                 {/* Image group */}
@@ -52,6 +62,7 @@ const MainProduct = ({ product }) => {
                     }
                 </div>
             </div>
+
 
             {/* Details section */}
             <div>

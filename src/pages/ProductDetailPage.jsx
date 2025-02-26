@@ -11,7 +11,7 @@ const ProductDetailPage = () => {
   const [product, setProduct] = useState(null);
 
   useEffect(() => {
-    if (!pid || products.length === 0) return; // Prevent running on empty products
+    if (!pid || products.length === 0) return; 
   
     const foundProduct = products.find((p) => p.id === parseInt(pid));
     if (foundProduct) setProduct(foundProduct);
@@ -21,7 +21,8 @@ const ProductDetailPage = () => {
 
   return (
     <div className="mt-28">
-      <BreadCrumbs />
+      <BreadCrumbs title={product?.title}/>
+      
       <div className="container mt-10">
         <MainProduct product={product} />
       </div>
