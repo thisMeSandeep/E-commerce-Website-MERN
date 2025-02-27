@@ -1,4 +1,5 @@
 import { Routes, Route } from "react-router-dom"
+import { Toaster } from "react-hot-toast"
 import Navbar from "./components/commonComponents/Navbar"
 // import Footer from "./components/commonComponents/Footer"
 import HomePage from "./pages/HomePage"
@@ -18,6 +19,7 @@ import MyOrdersPage from "./pages/MyOrdersPage"
 const App = () => {
   return (
     <>
+      <Toaster />
       <Navbar />
 
 

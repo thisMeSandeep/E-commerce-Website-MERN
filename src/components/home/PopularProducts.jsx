@@ -1,12 +1,11 @@
 import ProductCard from "../commonComponents/ProductCard";
 import useProductStore from "../../store/productStore";
-import { useStore } from "zustand";
-import { useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const PopularProducts = () => {
 
-    const { products } = useStore(useProductStore);
-    const navigate=useNavigate();
+    const products = useProductStore((state) => state.products);
+    const navigate = useNavigate();
 
     return (
         <div className="my-10">
@@ -20,7 +19,7 @@ const PopularProducts = () => {
                 }
             </div>
 
-            <button className="block mx-auto mt-10 border px-10 py-2 rounded-md text-gray-600  transition hover:bg-gray-100" onClick={()=>navigate("/products")}>Explore more</button>
+            <button className="block mx-auto mt-10 border px-10 py-2 rounded-md text-gray-600  transition hover:bg-gray-100" onClick={() => navigate("/products")}>Explore more</button>
 
         </div>
     );
