@@ -2,11 +2,12 @@ import { create } from "zustand";
 import axiosInstance from "../utils/axiosInstance";
 
 const useProductStore = create((set, get) => ({
-  products:[],
+  products: [],
   category: null,
   minPrice: null,
   maxPrice: null,
-  sort: null,
+  sort: "asc",
+  search: null,
   page: 1,
   totalPages: 1,
   currentPage: 1,
@@ -14,22 +15,25 @@ const useProductStore = create((set, get) => ({
   // Function to get products
   getProducts: async () => {
     try {
-      let { category, minPrice, maxPrice, sort, page } = get();
+      let { category, minPrice, maxPrice, sort, page, search } = get();
 
       if (category === "all") {
         set({ category: null });
         category = null;
       }
 
-      // query parameters 
+      // query parameters
       const params = new URLSearchParams();
       if (category) params.append("category", category);
       if (minPrice) params.append("minPrice", minPrice);
       if (maxPrice) params.append("maxPrice", maxPrice);
       if (sort) params.append("sort", sort);
       if (page) params.append("page", page);
+      if (search) params.append("search", search);
 
-      const { data } = await axiosInstance.get(`/api/products/get-products?${params.toString()}`);
+      const { data } = await axiosInstance.get(
+        `/api/products/get-products?${params.toString()}`
+      );
 
       if (data.success) {
         set({
@@ -48,6 +52,7 @@ const useProductStore = create((set, get) => ({
   setMinPrice: (minPrice) => set({ minPrice }),
   setMaxPrice: (maxPrice) => set({ maxPrice }),
   setSort: (sort) => set({ sort }),
+  setSearch: (search) => set({ search }),
   setPage: (page) => set({ page }),
 }));
 
