@@ -1,8 +1,7 @@
 import { Search, Loader } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import useProductStore from "../../store/productStore";
 import ProductCard from "../commonComponents/ProductCard";
-
 
 const options = [
   { value: "asc", label: "Lowest Price" },
@@ -18,29 +17,43 @@ const ProductsList = () => {
   const sort = useProductStore((state) => state.sort);
   const setSort = useProductStore((state) => state.setSort);
   const setSearch = useProductStore((state) => state.setSearch);
+  const page = useProductStore((state) => state.page);
+  const totalPages = useProductStore((state) => state.totalPages);
+  const currentPage = useProductStore((state) => state.currentPage);
+  const setPage = useProductStore((state) => state.setPage);
 
   const [searchTerm, setSearchTerm] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  // Fetch products when dependencies change
+  // Fetch products with debounced effect
+  const fetchProducts = useCallback(() => {
+    setLoading(true);
+    getProducts().finally(() => setLoading(false));
+  }, [getProducts]);
+
+  // Sync search term to store and fetch products
   useEffect(() => {
-    getProducts();
-  }, [category, minPrice, maxPrice, sort, searchTerm]);
+    const delaySearch = setTimeout(() => {
+      setSearch(searchTerm || null); // Clear search if empty
+      fetchProducts();
+    }, 300);
+    return () => clearTimeout(delaySearch);
+  }, [searchTerm, setSearch, fetchProducts]);
+
+  // Fetch products when other filters change
+  useEffect(() => {
+    fetchProducts();
+  }, [category, minPrice, maxPrice, sort, page, fetchProducts]);
 
   // Handle sort change
   const handleSortChange = (e) => {
     setSort(e.target.value);
-    getProducts();
   };
 
-  // Update search -debouncing
-  useEffect(() => {
-    const delaySearch = setTimeout(() => {
-      setSearch(searchTerm);
-      getProducts();
-    }, 300);
-
-    return () => clearTimeout(delaySearch);
-  }, [searchTerm]);
+  // Handle page change
+  const handlePageChange = (newPage) => {
+    setPage(newPage);
+  };
 
   return (
     <div className="flex-1">
@@ -75,16 +88,37 @@ const ProductsList = () => {
         </div>
       </div>
 
-      {/* Products List */}
-      {products.length > 0 ? (
-        <div className="mt-5 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-5 place-items-center max-h-[1000px] overflow-y-scroll no-scrollbar">
-          {products.map((product) => (
-            <ProductCard key={product._id} product={product} />
-          ))}
+      {/* List products */}
+      {loading ? (
+        <div className="h-[500px] flex items-center justify-center">
+          <Loader className="text-gray-600 size-10" />
+        </div>
+      ) : products.length === 0 ? (
+        <div className="h-[500px] flex items-center justify-center">
+          <p className="text-gray-500 text-lg">No products found!</p>
         </div>
       ) : (
-        <div className="h-[500px] flex items-center justify-center">
-          <Loader className="text-gray-600 size-10"/>
+        <div className="mt-5 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-5 place-items-center max-h-[1000px] overflow-y-scroll no-scrollbar">
+          {products.map((product) => (
+            <ProductCard key={product._id || product.id} product={product} />
+          ))}
+        </div>
+      )}
+
+      {/* Pagination */}
+      {totalPages > 1 && !loading && products.length > 0 && (
+        <div className="my-5 flex justify-center gap-2">
+          {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => (
+            <button
+              key={pageNum}
+              onClick={() => handlePageChange(pageNum)}
+              className={`px-3 py-1 rounded border ${
+                currentPage === pageNum ? "bg-orange-500 text-white" : "bg-white"
+              }`}
+            >
+              {pageNum}
+            </button>
+          ))}
         </div>
       )}
     </div>

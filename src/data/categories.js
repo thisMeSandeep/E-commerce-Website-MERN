@@ -1,5 +1,4 @@
 const categories = [
-  "all-category",
   "smartphones",
   "laptops",
   "fragrances",
