@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { LogOut, Menu, Settings, ShoppingBag, ShoppingCart, X } from "lucide-react";
+import { Heart, LogOut, Menu, Settings, ShoppingBag, ShoppingCart, X } from "lucide-react";
 import useUserStore from "../../store/userStore";
 import { assets } from "../../assets/assets";
 import HeaderNav2 from "./HeaderNav2";
@@ -19,12 +19,12 @@ const Navbar = () => {
   const logoutUser = useUserStore((state) => state.logoutUser);
   const navigate = useNavigate();
 
-  
+
   // Handle Logout
   const handleLogout = async () => {
     try {
       await logoutUser();
-      setShowDropdown(false); 
+      setShowDropdown(false);
       navigate("/");
     } catch (err) {
       console.log(err.message);
@@ -58,9 +58,8 @@ const Navbar = () => {
 
         {/* Mobile Menu */}
         <ul
-          className={`fixed top-16 right-2 w-full h-screen bg-white flex flex-col items-center justify-center gap-6 transition-transform duration-300 ${
-            toggleMenu ? "translate-x-0" : "translate-x-full"
-          } lg:hidden z-40`}
+          className={`fixed top-16 right-2 w-full h-screen bg-white flex flex-col items-center justify-center gap-6 transition-transform duration-300 ${toggleMenu ? "translate-x-0" : "translate-x-full"
+            } lg:hidden z-40`}
         >
           {navItems.map((nav) => (
             <Link
@@ -85,9 +84,8 @@ const Navbar = () => {
 
             {/* Dropdown */}
             <div
-              className={`border bg-white w-[300px] py-2 flex flex-col gap-2 rounded-md shadow-2xl absolute right-0 top-10 transition-opacity duration-200 ${
-                showDropdown ? "opacity-100 visible" : "opacity-0 invisible"
-              }`}
+              className={`border bg-white w-[300px] py-2 flex flex-col gap-2 rounded-md shadow-2xl absolute right-0 top-10 transition-opacity duration-200 ${showDropdown ? "opacity-100 visible" : "opacity-0 invisible"
+                }`}
             >
               {/* User Info */}
               <div className="flex items-center gap-5 border-b px-4 py-2">
@@ -113,6 +111,13 @@ const Navbar = () => {
                 >
                   <ShoppingCart className="size-4" />
                   Cart
+                </Link>
+                <Link
+                  to="/wishlist"
+                  className="flex items-center gap-4 border-t px-4 py-3 hover:text-gray-700 hover:bg-gray-200/50"
+                >
+                  <Heart className="size-4" />
+                  Wishlist
                 </Link>
                 <Link
                   to="/orders"

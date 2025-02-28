@@ -14,6 +14,7 @@ import MyOrdersPage from "./pages/MyOrdersPage"
 import ShoppingCart from "./pages/ShoppingCart.jsx"
 import useUserStore from "./store/userStore"
 import { useEffect } from "react"
+import WishListPage from "./pages/WishListPage.jsx"
 
 
 
@@ -40,6 +41,7 @@ const App = () => {
         <Route path="/register" element={<SignUpPage />} />
         <Route path="/product-details/:pid" element={<ProductDetailPage />} />
         <Route path="/cart" element={<ShoppingCart />} />
+        <Route path="/wishlist" element={<WishListPage />} />
         <Route path="/profile" element={<UserProfile />} />
         <Route path="/orders" element={<MyOrdersPage />} />
       </Routes >

@@ -8,7 +8,7 @@ export const AppContextProvider = ({ children }) => {
     // Function to add items to wishlist
     const addItemToWishlist = async (itemData) => {
         try {
-            const { data } = await axiosInstance.post("/api/wishlist/addItems", itemData);
+            const { data } = await axiosInstance.post("/api/wishlist/add-Items", itemData);
             if (data.success) {
                 toast.success(data.message);
             } else {
