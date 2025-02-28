@@ -11,9 +11,10 @@ import ShopPage from "./pages/ShopPage"
 import ContactPage from "./pages/ContactPage"
 import UserProfile from "./pages/UserProfile"
 import MyOrdersPage from "./pages/MyOrdersPage"
-import { ShoppingCart } from "lucide-react"
+import ShoppingCart from "./pages/ShoppingCart.jsx"
 import useUserStore from "./store/userStore"
 import { useEffect } from "react"
+
 
 
 

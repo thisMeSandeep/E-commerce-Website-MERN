@@ -12,13 +12,17 @@ const ActionsButtons = ({ product }) => {
         }
     }, [product]);
 
+    // caluclate discounted price
+    const discountedPrice = product.price - (product.price * product.discountPercentage) / 100;
+
     // add item to cart
     const addItemToCart = async () => {
         const cartData = {
             quantity: itemCount,
             title: product.title,
-            price: product.price,
-            thumbnail: product.thumbnail
+            price: discountedPrice.toFixed(2),
+            thumbnail: product.thumbnail,
+            productId: product._id
         };
 
         try {
@@ -46,7 +50,7 @@ const ActionsButtons = ({ product }) => {
                         onClick={() => setItemCount(prev => prev + 1)}
                     />
                 </div>
-                
+
                 {/* Add to Cart Button */}
                 <button
                     className="flex items-center justify-center gap-2 bg-orange-500 rounded px-10 py-2 text-white tracking-tighter flex-1 text-nowrap"

@@ -1,32 +1,108 @@
-// import { useEffect, useState } from "react"
-// import axiosInstance from "../utils/axiosInstance";
-// import toast from "react-hot-toast";
+import { ChevronRight, Home, Trash, X } from "lucide-react";
+import toast from "react-hot-toast";
+import { Link } from "react-router-dom";
+import axiosInstance from "../utils/axiosInstance";
+import { useEffect, useState } from "react";
+import CheckoutCard from "../components/commonComponents/CheckoutCard";
+
 
 const ShoppingCart = () => {
-  // const [cartData, setCartData] = useState([]);
+  const [cartItems, setCartItems] = useState([]);
 
-  // // fetch cart data
-  // const fetchCartData = async () => {
-  //   try {
-  //     const { data } = await axiosInstance.get("/api/cart/getCartItems");
-  //     if (data.success) {
-  //       setCartData(data.cart);
-  //       toast.success(data.message)
-  //     }
-  //   } catch (err) {
-  //     toast.error(err.message)
-  //   }
-  // }
+  const fetchCartData = async () => {
+    try {
+      const { data } = await axiosInstance.get("/api/cart/getCartItems");
+      if (data.success) {
+        setCartItems(data.cart);
+      }
+    } catch (err) {
+      toast.error(err.message);
+    }
+  };
 
-  // useEffect(() => {
-  //   fetchCartData()
-  // }, [])
+  useEffect(() => {
+    fetchCartData();
+  }, []);
 
-  // console.log(cartData)
+  // Calculate total price
+  const totalPrice = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
+
+  // Remove item from cart
+  const removeCartItem = async (id) => {
+    try {
+      const { data } = await axiosInstance.delete(`/api/cart/removeItem/${id}`);
+      if (data.success) {
+        toast.success(data.message);
+        setCartItems((prev) => prev.filter((item) => item._id !== id));
+      }
+    } catch (err) {
+      console.error("Remove Cart Item Error:", err);
+      toast.error(err.response?.data?.message || "Failed to remove item");
+    }
+  };
+
+  // checkout data
+
 
   return (
-    <div></div>
-  )
-}
+    <div className="mt-24  md:mt-[120px]">
+      {/* Breadcrumbs */}
+      <div className="flex text-gray-500 text-sm items-center gap-2 py-4 bg-blue-100/50 px-5 overflow-x-auto no-scrollbar text-nowrap">
+        <Link to="/" className="flex items-center gap-2">
+          <Home className="size-5 text-orange-500" /> Home
+        </Link>
+        <ChevronRight className="size-5" />
+        <Link to="/cart">Cart</Link>
+      </div>
 
-export default ShoppingCart
+      {/* Cart Details */}
+      <div className="container mt-10 flex flex-col lg:flex-row items-start gap-10">
+        {cartItems.length === 0 ? (
+          <div className="text-center text-gray-500 text-lg py-10">Your cart is empty.</div>
+        ) : (
+          <div className="border shadow rounded-md py-4 flex-1">
+            <h1 className="text-gray-600 text-xl font-medium px-4">Shopping Cart</h1>
+
+            {/* Cart Table Heading */}
+            <div className="mt-5 grid grid-cols-5 gap-2 md:gap-5 bg-blue-100/50 py-2 sm:py-3 place-items-center text-center text-[12px] sm:text-sm font-medium text-gray-500 text-nowrap px-1 ">
+              <p>PRODUCTS</p>
+              <p>PRICE</p>
+              <p>QUANTITY</p>
+              <p>SUB-TOTAL</p>
+              <X />
+            </div>
+
+            {/* Cart Items */}
+            {cartItems.map((item) => (
+              <div key={item._id} className=" grid grid-cols-5 gap-5 place-items-center border-b py-1">
+                {/* Image and Name */}
+                <div className="flex  items-center gap-4">
+                  <Link to={`/product-details/${item.productId}`}>
+                    <img src={item.thumbnail} alt={item.title} className="size-12 md:size-16 rounded-full  object-cover" />
+                  </Link>
+                  <p className="text-gray-700 hidden md:block ">{item.title}</p>
+                </div>
+
+                {/* Price */}
+                <p className="text-gray-700">${item.price.toFixed(2)}</p>
+
+                {/* Quantity */}
+                <span className="text-gray-700">{item.quantity}</span>
+
+                {/* Subtotal */}
+                <p className="text-gray-700">${(item.price * item.quantity).toFixed(2)}</p>
+                {/* remove icon */}
+                <X className="text-red-500 cursor-pointer" onClick={() => removeCartItem(item._id)} />
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* Checkout Section */}
+        {cartItems.length > 0 && <CheckoutCard totalPrice={totalPrice} />}
+      </div>
+    </div>
+  );
+};
+
+export default ShoppingCart;
