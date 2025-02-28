@@ -1,11 +1,29 @@
 import ProductCard from "../commonComponents/ProductCard";
-import useProductStore from "../../store/productStore";
 import { useNavigate } from "react-router-dom";
+import axiosInstance from "../../utils/axiosInstance";
+import { useEffect, useState } from "react";
 
 const PopularProducts = () => {
 
-    const products = useProductStore((state) => state.products);
-    const navigate = useNavigate();
+    const [popularProducts, setPopularProducts] = useState([]);
+
+    const navigate=useNavigate();
+
+    //    fetch some products
+    const fetchProduct = async () => {
+        try {
+            const { data } = await axiosInstance.get("/api/products/get-products");
+            if (data.success) {
+                setPopularProducts(data.data)
+            }
+        } catch (err) {
+            console.log(err.message)
+        }
+    }
+
+    useEffect(() => {
+        fetchProduct();
+    }, [])
 
     return (
         <div className="my-10">
@@ -13,7 +31,7 @@ const PopularProducts = () => {
 
             <div className="mt-10 grid grid-cols-2 gap-8 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 place-items-center">
                 {
-                    products.slice(0, 10).map((product) => (
+                    popularProducts.slice(0, 10).map((product) => (
                         <ProductCard key={product.id} product={product} />
                     ))
                 }

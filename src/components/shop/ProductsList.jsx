@@ -91,7 +91,7 @@ const ProductsList = () => {
       {/* List products */}
       {loading ? (
         <div className="h-[500px] flex items-center justify-center">
-          <Loader className="text-gray-600 size-10" />
+          <Loader className="text-gray-600 size-10 animate-spin" />
         </div>
       ) : products.length === 0 ? (
         <div className="h-[500px] flex items-center justify-center">
@@ -100,7 +100,7 @@ const ProductsList = () => {
       ) : (
         <div className="mt-5 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-5 place-items-center max-h-[1000px] overflow-y-scroll no-scrollbar">
           {products.map((product) => (
-            <ProductCard key={product._id || product.id} product={product} />
+            <ProductCard key={product._id} product={product} />
           ))}
         </div>
       )}

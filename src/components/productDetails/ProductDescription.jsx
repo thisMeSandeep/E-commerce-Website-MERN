@@ -9,18 +9,18 @@ const tabs = [
     { id: 3, tabType: "REVIEW" }
 ];
 
-const ProductDescription = ({ productId }) => {
+const ProductDescription = ({ product }) => {
     const [tabType, setTabType] = useState("DESCRIPTION");
 
     //  function to render tab content
     const renderTabContent = () => {
         switch (tabType) {
             case "FEATURES":
-                return <FeaturesTab productId={productId} />;
+                return <FeaturesTab product={product} />;
             case "REVIEW":
-                return <ReviewTab productId={productId} />;
+                return <ReviewTab reviews={product.reviews} />;
             default:
-                return <DescriptionTab productId={productId} />;
+                return <DescriptionTab productDescription={product.description} />;
         }
     };
 

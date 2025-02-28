@@ -6,12 +6,12 @@ const ProductCard = ({product}) => {
 
 
     return (
-        <Link to={`/product-details/${product.id}`} className="flex flex-col items-start gap-0.5 max-w-[200px] w-full cursor-pointer"
+        <Link to={`/product-details/${product._id}`} className="flex flex-col items-start gap-0.5 min-w-[200px] w-full cursor-pointer"
         >
             <div className="cursor-pointer group relative bg-gray-500/10 rounded-lg w-full h-52 flex items-center justify-center">
                 <img
                     src={product.thumbnail}
-                    // alt={product.name}
+                    alt={product.title}
                     className="group-hover:scale-105 transition object-cover w-4/5 h-4/5 md:w-full md:h-full"
                 />
                 <button className="absolute top-2 right-2 bg-white p-2 rounded-full shadow-md hover:scale-105 ">

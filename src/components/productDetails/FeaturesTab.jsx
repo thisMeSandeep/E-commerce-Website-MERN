@@ -1,9 +1,9 @@
 import { Award, DollarSign, HeadphonesIcon, Recycle, Truck } from "lucide-react";
-import useProductStore from "../../store/productStore"
 
-const FeaturesTab = ({ productId }) => {
 
-    const product = useProductStore((state) => state.products.find(p => p.id === productId));
+const FeaturesTab = ({ product}) => {
+
+   console.log(product)
 
     return (
         <div className="flex items-center flex-col justify-center gap-5 py-5">

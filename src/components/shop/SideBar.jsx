@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 import categories from "../../data/categories"
 import useProductStore from "../../store/productStore";
+import { useCategoryContext } from "../../contexts/CategoryContext";
 
 const priceRanges = [
   { label: "All Prices", all: true },
@@ -23,9 +24,9 @@ const stylingOptions = {
 };
 
 const SideBar = () => {
-  const [selectedCategory, setSelectedCategory] = useState("all");
   const [priceValue, setPriceValue] = useState([0, 1000]);
   const [selectedPriceRange, setSelectedPriceRange] = useState(priceRanges[0]);
+  const { currentCategory, setCurrentCategory } = useCategoryContext();
 
   const setCategory = useProductStore((state) => state.setCategory);
   const setMinPrice = useProductStore((state) => state.setMinPrice);
@@ -43,9 +44,9 @@ const SideBar = () => {
 
   // Sync category to store
   useEffect(() => {
-    setCategory(selectedCategory);
+    setCategory(currentCategory);
     getProducts();
-  }, [selectedCategory, setCategory, getProducts]);
+  }, [currentCategory, setCategory, getProducts]);
 
   // Sync price filters to store
   useEffect(() => {
@@ -77,27 +78,25 @@ const SideBar = () => {
       <ul className="space-y-2 border-b py-4">
         <li className="flex items-center gap-2">
           <div
-            className={`size-4 rounded-full border cursor-pointer flex items-center justify-center ${
-              selectedCategory === "all" ? "bg-orange-500" : "bg-white border-black/20"
-            }`}
-            onClick={() => setSelectedCategory("all")}
+            className={`size-4 rounded-full border cursor-pointer flex items-center justify-center ${currentCategory === "all" ? "bg-orange-500" : "bg-white border-black/20"
+              }`}
+            onClick={() => setCurrentCategory("all")}
           >
             <div className="size-2 rounded-full bg-white" />
           </div>
-          <p className={selectedCategory === "all" ? "text-gray-800" : "text-gray-600"}>All</p>
+          <p className={currentCategory === "all" ? "text-gray-800" : "text-gray-600"}>All</p>
         </li>
         {categories.map((item) => (
           <li key={item} className="flex items-center gap-2">
             <div
-              className={`size-4 rounded-full border cursor-pointer flex items-center justify-center ${
-                selectedCategory === item ? "bg-orange-500" : "bg-white border-black/20"
-              }`}
-              onClick={() => setSelectedCategory(item)}
+              className={`size-4 rounded-full border cursor-pointer flex items-center justify-center ${currentCategory === item ? "bg-orange-500" : "bg-white border-black/20"
+                }`}
+              onClick={() => setCurrentCategory(item)}
             >
               <div className="size-2 rounded-full bg-white" />
             </div>
-            <p className={selectedCategory === item ? "text-gray-800" : "text-gray-600"}>
-              {item.replace(/-/g, " ")}
+            <p className={`capitalize ${currentCategory === item ? "text-gray-800" : "text-gray-600"}`}>
+              {item.replace("-", " ")}
             </p>
           </li>
         ))}
@@ -121,9 +120,8 @@ const SideBar = () => {
         {priceRanges.map((price) => (
           <div key={price.label} className="flex items-center gap-2">
             <div
-              className={`size-4 rounded-full border-2 cursor-pointer ${
-                selectedPriceRange === price ? "border-orange-500" : "border-black/20"
-              }`}
+              className={`size-4 rounded-full border-2 cursor-pointer ${selectedPriceRange === price ? "border-orange-500" : "border-black/20"
+                }`}
               onClick={() => handlePriceRange(price)}
             />
             <p className="text-gray-600">{price.label}</p>

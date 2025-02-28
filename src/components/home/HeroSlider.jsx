@@ -1,6 +1,7 @@
 import  { useState, useEffect } from "react";
 import { sliderData } from "../../data/sliderData";
 import { assets } from "../../assets/assets";
+import { Link } from "react-router-dom";
 
 const HeaderSlider = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -35,13 +36,13 @@ const HeaderSlider = () => {
                 {slide.title}
               </h1>
               <div className="flex items-center mt-4 md:mt-6 ">
-                <button className="md:px-10 px-7 md:py-2.5 py-2 bg-orange-600 rounded-full text-white font-medium">
+                <Link to={`/product-details/${slide.id}`} className="md:px-10 px-7 md:py-2.5 py-2 bg-orange-600 rounded-full text-white font-medium">
                   {slide.buttonText1}
-                </button>
-                <button className="group flex items-center gap-2 px-6 py-2.5 font-medium">
+                </Link >
+                <Link to={`/product-details/${slide.id}`} className="group flex items-center gap-2 px-6 py-2.5 font-medium">
                   {slide.buttonText2}
                   <img className="group-hover:translate-x-1 transition" src={assets.arrow_icon} alt="arrow_icon" />
-                </button>
+                </Link>
               </div>
             </div>
             <div className="flex items-center flex-1 justify-center">

@@ -2,7 +2,7 @@ const categories = [
   "smartphones",
   "laptops",
   "fragrances",
-  "skincare",
+  "beauty",
   "groceries",
   "home-decoration",
   "furniture",
@@ -16,9 +16,9 @@ const categories = [
   "womens-bags",
   "womens-jewellery",
   "sunglasses",
-  "automotive",
+  "sports-accessories",
   "motorcycle",
-  "lighting",
+  "kitchen-accessories",
 ];
 
 export default categories;

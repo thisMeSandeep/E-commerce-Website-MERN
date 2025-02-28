@@ -1,7 +1,7 @@
 export const exploreCategories = [
   {
     id: 1,
-    category: "Beauty",
+    category: "beauty",
     image:
       "https://cdn.dummyjson.com/products/images/beauty/Red%20Nail%20Polish/1.png",
     highlight: "Glow Up with the Best Beauty Picks!",

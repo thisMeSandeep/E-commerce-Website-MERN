@@ -1,11 +1,8 @@
-import useProductStore from "../../store/productStore";
-import { Star } from "lucide-react"; 
 
-const ReviewTab = ({ productId }) => {
- 
-    const reviews = useProductStore((state) => 
-        state.products.find(p => p.id === productId)?.reviews || []
-    );
+import { Star } from "lucide-react";
+
+const ReviewTab = ({ reviews }) => {
+
 
     return (
         <div className="p-5 md:p-8 bg-white rounded-lg shadow-md">
