@@ -1,39 +1,14 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { assets } from "../../assets/assets";
 import ProductDetails from "./ProductDetails";
-import { Minus, Plus, ShoppingCartIcon } from "lucide-react";
+
 import paymentMethodsImage from "../../assets/Payment_Method.png"
+import ActionsButtons from "./ActionsButtons";
 
 const MainProduct = ({ product }) => {
-
-    const [itemCount, setItemCount] = useState(product?.minimumOrderQuantity || 0);
-
-    const [addToCart, setAddToCart] = useState({
-        productId: product?.id || null,
-        quantity: product?.minimumOrderQuantity || 0,
-    });
-
     const [imageIndex, setImageIndex] = useState(0);
     const [zoom, setZoom] = useState(false);
     const [position, setPosition] = useState({ x: 50, y: 50 });
-
-
-    useEffect(() => {
-        if (product) {
-            setItemCount(product.minimumOrderQuantity);
-            setAddToCart({
-                productId: product.id,
-                quantity: product.minimumOrderQuantity,
-            });
-        }
-    }, [product]);
-
-    useEffect(() => {
-        setAddToCart(prev => ({
-            ...prev,
-            quantity: itemCount,
-        }));
-    }, [itemCount]);
 
 
     if (!product || !product.images) {
@@ -94,22 +69,7 @@ const MainProduct = ({ product }) => {
                 <ProductDetails product={product} />
 
                 {/* action buttons-add to cart and buy */}
-                <div className="flex flex-col lg:flex-row  items-center justify-between gap-4 mt-10">
-
-                    <div className="flex items-center gap-2 w-full">
-                        {/* set item count */}
-                        <div className="flex items-center text-gray-700 gap-5 border-2 px-2 py-2 rounded">
-                            <Minus className="size-4 cursor-pointer" onClick={() => setItemCount(prev => Math.max(product.minimumOrderQuantity, prev - 1))} />
-                            <p>{itemCount}</p>
-                            <Plus className="size-4 cursor-pointer" onClick={() => setItemCount(prev => prev + 1)} />
-                        </div>
-                        {/* add to cart */}
-                        <button className="flex items-center justify-center gap-2 bg-orange-500 rounded px-10 py-2 text-white tracking-tighter flex-1 text-nowrap "><span >ADD TO CART</span><ShoppingCartIcon className="size-5" /></button>
-                    </div>
-                    {/*  Buy now*/}
-                    <button className="w-full lg:w-auto text-nowrap rounded px-10 py-2 text-orange-500 border-2 border-orange-500 font-medium tracking-tighter">BUY NOW</button>
-                </div>
-
+                <ActionsButtons product={product} />
                 <div className="mt-8 border px-2 py-4 rounded">
                     <p className="text-gray-800 ">100% Guarantee safe Checkout</p>
                     <img src={paymentMethodsImage} alt="payment methods" className="mt-2" />

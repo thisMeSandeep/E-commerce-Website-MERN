@@ -58,7 +58,7 @@ const Navbar = () => {
 
         {/* Mobile Menu */}
         <ul
-          className={`fixed inset-0 bg-white flex flex-col items-center justify-center gap-6 transition-transform duration-300 ${
+          className={`fixed top-16 right-2 w-full h-screen bg-white flex flex-col items-center justify-center gap-6 transition-transform duration-300 ${
             toggleMenu ? "translate-x-0" : "translate-x-full"
           } lg:hidden z-40`}
         >
@@ -91,7 +91,7 @@ const Navbar = () => {
             >
               {/* User Info */}
               <div className="flex items-center gap-5 border-b px-4 py-2">
-                <img src={assets.user_icon} alt="user pic" className="size-10" />
+                <img src={assets.user_icon} alt="user pic" className="size-5" />
                 <p className="flex flex-col">
                   <span className="font-medium">{user.name}</span>
                   <span className="text-sm text-gray-500">{user.email}</span>
@@ -99,33 +99,33 @@ const Navbar = () => {
               </div>
 
               {/* Dropdown Links */}
-              <ul className="flex flex-col text-gray-600">
+              <ul className="flex flex-col text-gray-600 text-sm">
                 <Link
                   to="/profile"
-                  className="flex items-center gap-4 border-t px-4 py-3 hover:text-gray-700 hover:bg-gray-200/50"
+                  className="flex items-center gap-4  px-4 py-3 hover:text-gray-700 hover:bg-gray-200/50"
                 >
-                  <Settings className="size-5" />
+                  <Settings className="size-4" />
                   Profile
                 </Link>
                 <Link
                   to="/cart"
                   className="flex items-center gap-4 border-t px-4 py-3 hover:text-gray-700 hover:bg-gray-200/50"
                 >
-                  <ShoppingCart className="size-5" />
+                  <ShoppingCart className="size-4" />
                   Cart
                 </Link>
                 <Link
                   to="/orders"
                   className="flex items-center gap-4 border-t px-4 py-3 hover:text-gray-700 hover:bg-gray-200/50"
                 >
-                  <ShoppingBag className="size-5" />
+                  <ShoppingBag className="size-4" />
                   My Orders
                 </Link>
                 <button
                   onClick={handleLogout}
                   className="flex items-center gap-4 border-t px-4 py-3 hover:text-gray-700 hover:bg-gray-200/50"
                 >
-                  <LogOut className="size-5" />
+                  <LogOut className="size-4" />
                   Log out
                 </button>
               </ul>
