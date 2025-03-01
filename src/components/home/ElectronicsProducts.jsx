@@ -1,17 +1,18 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axiosInstance from "../../utils/axiosInstance";
 import ProductCard from "../commonComponents/ProductCard";
+import { useCategoryContext } from "../../contexts/CategoryContext";
 
 const ElectronicsProducts = () => {
   const [electronics, setElectronics] = useState([]);
-  const navigate = useNavigate();
+  const { setCurrentCategory } = useCategoryContext();
 
   // Fetch electronics products
   const fetchElectronicsProducts = async () => {
     try {
       const { data } = await axiosInstance.get("/api/products/get-products?category=smartphones");
-      setElectronics(data.data); 
+      setElectronics(data.data);
     } catch (err) {
       console.error("Error fetching products:", err.message);
     }
@@ -19,26 +20,26 @@ const ElectronicsProducts = () => {
 
   useEffect(() => {
     fetchElectronicsProducts();
-  }, []); 
+  }, []);
 
   return (
-    <div className="my-10">
+    <div className="my-10 bg-wh">
       <h1 className="text-2xl font-medium text-gray-700">Smart Phones</h1>
 
       {/* Product Grid */}
       <div className="mt-10 grid grid-cols-2 gap-8 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 place-items-center">
-        { electronics?.slice(0, 10).map((product) => (
+        {electronics?.slice(0, 10).map((product) => (
           <ProductCard key={product._id || product.id} product={product} />
         ))}
       </div>
 
       {/* Explore More Button */}
-      <button
-        className="block mx-auto mt-10 border px-10 py-2 rounded-md text-gray-600 transition hover:bg-gray-100"
-        onClick={() => navigate("/products")}
+      <Link to='/products'
+        className="block w-fit mx-auto mt-10 border px-10 py-2 rounded-md text-gray-600 transition hover:bg-gray-100"
+        onClick={() => setCurrentCategory('smartphones')}
       >
         Explore more
-      </button>
+      </Link>
     </div>
   );
 };

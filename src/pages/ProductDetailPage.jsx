@@ -7,11 +7,14 @@ import axiosInstance from "../utils/axiosInstance";
 import { Loader } from "lucide-react";
 import RelatedProducts from "../components/productDetails/RelatedProducts";
 
+
 const ProductDetailPage = () => {
   const { pid } = useParams();
   const [product, setProduct] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+
+ 
 
   // Fetch product details
   const fetchProductDetails = async () => {
@@ -40,7 +43,7 @@ const ProductDetailPage = () => {
 
   return (
     <div className="mt-28">
-      <BreadCrumbs title={product?.title} />
+      <BreadCrumbs productName={product?.title} />
       <div className="container mt-10">
         {loading ? (
           <div className="flex justify-center items-center h-64">

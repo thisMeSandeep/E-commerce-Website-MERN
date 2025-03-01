@@ -1,9 +1,10 @@
-import { ChevronRight, Home, Trash, X } from "lucide-react";
+import {X } from "lucide-react";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 import axiosInstance from "../utils/axiosInstance";
 import { useEffect, useState } from "react";
 import CheckoutCard from "../components/commonComponents/CheckoutCard";
+import BreadCrumbs from "../components/commonComponents/BreadCrumbs";
 
 
 const ShoppingCart = () => {
@@ -47,13 +48,7 @@ const ShoppingCart = () => {
   return (
     <div className="mt-24  md:mt-[120px]">
       {/* Breadcrumbs */}
-      <div className="flex text-gray-500 text-sm items-center gap-2 py-4 bg-blue-100/50 px-5 overflow-x-auto no-scrollbar text-nowrap">
-        <Link to="/" className="flex items-center gap-2">
-          <Home className="size-5 text-orange-500" /> Home
-        </Link>
-        <ChevronRight className="size-5" />
-        <Link to="/cart">Cart</Link>
-      </div>
+      <BreadCrumbs />
 
       {/* Cart Details */}
       <div className="container mt-10 flex flex-col lg:flex-row items-start gap-10">

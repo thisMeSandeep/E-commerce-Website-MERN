@@ -1,22 +1,37 @@
-import { ChevronRight, Home } from "lucide-react"
-import { Link } from "react-router-dom"
-import { useCategoryContext } from "../../contexts/CategoryContext"
+import { ChevronRight, Home } from "lucide-react";
+import { Link, useLocation } from "react-router-dom";
 
-const BreadCrumbs = ({ title }) => {
-
-    const { currentCategory } = useCategoryContext();
+const BreadCrumbs = ({ productName }) => {
+    const { pathname } = useLocation();
+    const paths = pathname.split("/").filter(Boolean);
 
     return (
-        <div className="flex text-gray-500 text-sm items-center gap-2 py-4 bg-blue-100/50 px-5 overflow-x-auto no-srollbar text-nowrap">
-            <Link to="/" className="flex items-center gap-2"><Home className="size-5 text-orange-500" /> Home</Link>
-            <ChevronRight className="size-5" />
-            <Link to="/products">Shop</Link>
-            <ChevronRight className="size-5" />
-            <Link to="/products" className="capitalize">{currentCategory.replace("-"," ")}</Link>
-            <ChevronRight className="size-5" />
-            <span>{title}</span>
-        </div>
-    )
-}
+        <div className="flex text-gray-500 text-sm items-center gap-2 py-4 bg-blue-100/50 px-5 overflow-x-auto no-scrollbar text-nowrap">
+            <Link to="/" className="flex items-center gap-2">
+                <Home className="size-5 text-orange-500" /> Home
+            </Link>
 
-export default BreadCrumbs
+            {paths.map((segment, index) => {
+                const isLast = index === paths.length - 1;
+                const url = `/${paths.slice(0, index + 1).join("/")}`;
+                
+                const displayText = isLast && productName ? productName : segment.replace("-", " ");
+
+                return (
+                    <div key={url} className="flex items-center gap-2">
+                        <ChevronRight className="size-4 text-gray-400" />
+                        {isLast ? (
+                            <span className="capitalize text-gray-700">{displayText}</span>
+                        ) : (
+                            <Link to={url} className="capitalize text-blue-600 hover:underline">
+                                {displayText}
+                            </Link>
+                        )}
+                    </div>
+                );
+            })}
+        </div>
+    );
+};
+
+export default BreadCrumbs;

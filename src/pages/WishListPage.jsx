@@ -3,6 +3,7 @@ import axiosInstance from "../utils/axiosInstance";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
 import { ChevronRight, Home, Plus, X } from "lucide-react";
+import BreadCrumbs from "../components/commonComponents/BreadCrumbs";
 
 const WishListPage = () => {
   const [wishlist, setWishlist] = useState([]);
@@ -72,13 +73,7 @@ const WishListPage = () => {
   return (
     <div className="mt-[120px]">
       {/* Breadcrumbs */}
-      <div className="flex text-gray-500 text-sm items-center gap-2 py-4 bg-blue-100/50 px-5 overflow-x-auto no-scrollbar text-nowrap">
-        <Link to="/" className="flex items-center gap-2">
-          <Home className="size-5 text-orange-500" /> Home
-        </Link>
-        <ChevronRight className="size-5" />
-        <Link to="/wishlist">Wishlist</Link>
-      </div>
+      <BreadCrumbs />
 
       <div className="container mt-10 ">
         {/* Wishlist Section */}

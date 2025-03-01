@@ -1,7 +1,6 @@
 import { create } from "zustand";
 import axiosInstance from "../utils/axiosInstance";
 import toast from "react-hot-toast";
-
 const useUserStore = create((set, get) => ({
   user: null,
   error: null,

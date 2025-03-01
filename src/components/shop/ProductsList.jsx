@@ -55,6 +55,15 @@ const ProductsList = () => {
     setPage(newPage);
   };
 
+  // scroll to top
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
+  }, [currentPage])
+
   return (
     <div className="flex-1">
       {/* Upper search boxes */}
@@ -112,9 +121,8 @@ const ProductsList = () => {
             <button
               key={pageNum}
               onClick={() => handlePageChange(pageNum)}
-              className={`px-3 py-1 rounded border ${
-                currentPage === pageNum ? "bg-orange-500 text-white" : "bg-white"
-              }`}
+              className={`px-3 py-1 rounded border ${currentPage === pageNum ? "bg-orange-500 text-white" : "bg-white"
+                }`}
             >
               {pageNum}
             </button>

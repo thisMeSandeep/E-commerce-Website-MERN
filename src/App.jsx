@@ -15,6 +15,7 @@ import ShoppingCart from "./pages/ShoppingCart.jsx"
 import useUserStore from "./store/userStore"
 import { useEffect } from "react"
 import WishListPage from "./pages/WishListPage.jsx"
+import ScrollToTop from "./utils/ScrollToTop.jsx"
 
 
 
@@ -32,6 +33,7 @@ const App = () => {
     <>
       <Toaster />
       <Navbar />
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="products" element={<ShopPage />} />
