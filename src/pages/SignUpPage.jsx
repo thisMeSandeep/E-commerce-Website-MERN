@@ -12,8 +12,8 @@ const RegisterPage = () => {
   });
   const [passwordError, setPasswordError] = useState("");
   const [passwordVisibility, setPasswordVisibility] = useState(false);
+  const navigate = useNavigate()
 
-  const navigate = useNavigate();
   const registerUser = useUserStore((state) => state.registerUser);
   const error = useUserStore((state) => state.error);
   const registerStatus = useUserStore((state) => state.registerStatus);
@@ -38,8 +38,10 @@ const RegisterPage = () => {
     if (registerStatus === "loading") return;
 
     try {
-      await registerUser(formData);
-      navigate("/");
+      const response = await registerUser(formData);
+      if (response) {
+        navigate("/profile");
+      }
     } catch (err) {
       console.error(err.message);
     }
@@ -96,15 +98,16 @@ const RegisterPage = () => {
                 placeholder="Enter your password"
                 className="w-full px-4 py-2 mt-1 border rounded-lg  focus:ring-1 focus:ring-black/20 outline-none text-gray-600"
                 required
+                minLength={6}
               />
               {passwordVisibility ? (
                 <Eye
-                  className="size-5 absolute top-[50%] right-[5px] -translate-y-[50%] cursor-pointer text-gray-500"
+                  className="size-[18px] absolute top-[50%] right-[5px] -translate-y-[50%] cursor-pointer text-gray-500/80"
                   onClick={() => setPasswordVisibility((prev) => !prev)}
                 />
               ) : (
                 <EyeOff
-                  className="size-5 absolute top-[50%] right-[5px] -translate-y-[50%] cursor-pointer text-gray-500"
+                  className="size-[18px] absolute top-[50%] right-[5px] -translate-y-[50%] cursor-pointer text-gray-500/80"
                   onClick={() => setPasswordVisibility((prev) => !prev)}
                 />
               )}

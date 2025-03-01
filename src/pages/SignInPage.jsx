@@ -6,8 +6,8 @@ import useUserStore from "../store/userStore";
 const SignInPage = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [passwordVisibility, setPasswordVisibility] = useState(false);
-  const navigate = useNavigate();
 
+  const navigate = useNavigate();
 
   const loginUser = useUserStore((state) => state.loginUser);
   const loginStatus = useUserStore((state) => state.loginStatus);
@@ -21,8 +21,10 @@ const SignInPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await loginUser(formData);
-      navigate(-1);
+      const response = await loginUser(formData);
+      if (response) {
+        navigate(-1);
+      }
     } catch (err) {
       console.log(err.message)
     }
@@ -66,12 +68,12 @@ const SignInPage = () => {
               />
               {passwordVisibility ? (
                 <Eye
-                  className="size-4 absolute top-[50%] right-[5px] -translate-y-[50%] cursor-pointer text-gray-500"
+                  className="size-[18px] absolute top-[50%] right-[5px] -translate-y-[50%] cursor-pointer text-gray-500/80"
                   onClick={() => setPasswordVisibility((prev) => !prev)}
                 />
               ) : (
                 <EyeOff
-                  className="size-4 absolute top-[50%] right-[5px] -translate-y-[50%] cursor-pointer text-gray-500"
+                  className="size-[18px] absolute top-[50%] right-[5px] -translate-y-[50%] cursor-pointer text-gray-500/80"
                   onClick={() => setPasswordVisibility((prev) => !prev)}
                 />
               )}

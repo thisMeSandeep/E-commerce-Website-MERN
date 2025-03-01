@@ -14,9 +14,9 @@ const useUserStore = create((set, get) => ({
       const { data } = await axiosInstance.post("/api/user/register", formData);
 
       if (data.success) {
-        console.log("data:", data);
         set({ user: data.user, registerStatus: "success" });
         toast.success(data.message);
+        return data.success;
       }
     } catch (err) {
       set({
@@ -34,8 +34,9 @@ const useUserStore = create((set, get) => ({
       const { data } = await axiosInstance.post("/api/user/login", formData);
 
       if (data.success) {
-        set({ user: data.user, loginStatus: "success" }); // ✅
+        set({ user: data.user, loginStatus: "success" }); 
         toast.success(data.message);
+        return data.success;
       }
     } catch (err) {
       set({
