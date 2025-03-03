@@ -47,7 +47,7 @@ const ProductCard = ({ product }) => {
                         <img
                             key={index}
                             className="h-3 w-3"
-                            src={index < Math.floor(product.rating) ? assets.star_icon : assets.star_dull_icon}
+                            src={index < Math.round(product.rating) ? assets.star_icon : assets.star_dull_icon}
                             alt="star_icon"
                         />
                     ))}

@@ -44,7 +44,7 @@ const Avatar = () => {
     };
 
     return (
-        <div>
+        <div className="py-5">
             <form className=" space-y-5 w-full md:max-w-3xl mx-auto">
                 {/* User Avatar */}
                 <div className="size-32 mx-auto">
