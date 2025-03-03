@@ -1,7 +1,8 @@
 import { create } from "zustand";
 import axiosInstance from "../utils/axiosInstance";
 import toast from "react-hot-toast";
-const useUserStore = create((set, get) => ({
+
+const useUserStore = create((set) => ({
   user: null,
   error: null,
   registerStatus: "idle",
@@ -34,7 +35,7 @@ const useUserStore = create((set, get) => ({
       const { data } = await axiosInstance.post("/api/user/login", formData);
 
       if (data.success) {
-        set({ user: data.user, loginStatus: "success" }); 
+        set({ user: data.user, loginStatus: "success" });
         toast.success(data.message);
         return data.success;
       }

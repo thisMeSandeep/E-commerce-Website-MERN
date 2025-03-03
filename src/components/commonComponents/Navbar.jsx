@@ -75,11 +75,11 @@ const Navbar = () => {
 
         {/* User Dropdown */}
         {user ? (
-          <div className="relative cursor-pointer" onClick={() => setShowDropdown((prev) => !prev)}>
+          <div className="relative cursor-pointer " onClick={() => setShowDropdown((prev) => !prev)}>
             <img
-              src={assets.user_icon}
+              src={user?.avatar ||assets.user_icon}
               alt="user icon"
-              className="border-2 p-1 border-gray-400 rounded-full"
+              className="border-2 size-8 object-cover  border-gray-400 rounded-full"
             />
 
             {/* Dropdown */}
@@ -89,7 +89,7 @@ const Navbar = () => {
             >
               {/* User Info */}
               <div className="flex items-center gap-5 border-b px-4 py-2">
-                <img src={assets.user_icon} alt="user pic" className="size-5" />
+                <img src={user?.avatar ||assets.user_icon} alt="user pic" className="size-5 object-cover rounded-full" />
                 <p className="flex flex-col">
                   <span className="font-medium">{user.name}</span>
                   <span className="text-sm text-gray-500">{user.email}</span>

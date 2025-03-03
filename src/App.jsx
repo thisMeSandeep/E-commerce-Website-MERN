@@ -16,6 +16,7 @@ import useUserStore from "./store/userStore"
 import { useEffect } from "react"
 import WishListPage from "./pages/WishListPage.jsx"
 import ScrollToTop from "./utils/ScrollToTop.jsx"
+import ErrorPage from "./pages/ErrorPage.jsx"
 
 
 
@@ -36,6 +37,7 @@ const App = () => {
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="*" element={<ErrorPage />} />
         <Route path="products" element={<ShopPage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/contact" element={<ContactPage />} />
