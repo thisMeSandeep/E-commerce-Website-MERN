@@ -4,21 +4,24 @@ import toast from "react-hot-toast";
 
 const useAddressStore = create((set, get) => ({
   addresses: [],
-  selectedAddress: null,
+  selectedAddress: null, 
 
-  //function Fetch addresses 
+  // Function to fetch addresses 
   fetchAddresses: async () => {
     try {
       const { data } = await axiosInstance.get("/api/user/get-address");
       if (data.success) {
-        set({ addresses: data.addresses });
+        set({
+          addresses: data.addresses,
+          selectedAddress: data.addresses.length > 0 ? data.addresses[0] : null, 
+        });
       }
     } catch (err) {
       console.error("Error fetching addresses:", err.message);
     }
   },
 
-  //function to add a new address
+  // Function to add a new address
   addAddress: async (address) => {
     try {
       const { data } = await axiosInstance.post(
@@ -34,23 +37,7 @@ const useAddressStore = create((set, get) => ({
     }
   },
 
-  //function to update an address
-  updateAddress: async (updatedFields) => {
-    try {
-      const { data } = await axiosInstance.put(
-        "/api/user/update-address",
-        updatedFields
-      );
-      if (data.success) {
-        toast.success(data.message);
-        await get().fetchAddresses(); 
-      }
-    } catch (err) {
-      toast.error(err?.response?.data?.message || "Something went wrong");
-    }
-  },
-
-  //function to  delete an address
+  // Function to delete an address
   deleteAddress: async (id) => {
     try {
       const { data } = await axiosInstance.delete(
@@ -58,7 +45,7 @@ const useAddressStore = create((set, get) => ({
       );
       if (data.success) {
         toast.success(data.message);
-        await get().fetchAddresses(); 
+        await get().fetchAddresses();
       }
     } catch (error) {
       toast.error(error?.response?.data?.message || "Failed to delete address");
@@ -66,7 +53,7 @@ const useAddressStore = create((set, get) => ({
     }
   },
 
-  // Select an address for checkout
+  // Select an address as default
   selectAddress: (id) => {
     set((state) => ({
       selectedAddress: state.addresses.find((addr) => addr._id === id) || null,

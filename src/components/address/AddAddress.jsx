@@ -47,7 +47,7 @@ const AddAddress = () => {
                         onChange={handleChange}
                         required
                         rows="3"
-                        className="w-full mt-1 p-2 border rounded-md focus:outline-none focus:ring focus:ring-orange-300"
+                        className="w-full mt-1 p-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-black/50 text-gray-600"
                         placeholder="Enter full address..."
                     ></textarea>
                 </div>
@@ -61,7 +61,7 @@ const AddAddress = () => {
                         value={formData.city}
                         onChange={handleChange}
                         required
-                        className="w-full mt-1 p-2 border rounded-md focus:outline-none focus:ring focus:ring-orange-300"
+                        className="w-full mt-1 p-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-black/50 text-gray-600"
                         placeholder="Enter city..."
                     />
                 </div>
@@ -75,7 +75,7 @@ const AddAddress = () => {
                         value={formData.state}
                         onChange={handleChange}
                         required
-                        className="w-full mt-1 p-2 border rounded-md focus:outline-none focus:ring focus:ring-orange-300"
+                        className="w-full mt-1 p-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-black/50 text-gray-600"
                         placeholder="Enter state..."
                     />
                 </div>
@@ -89,7 +89,7 @@ const AddAddress = () => {
                         value={formData.country}
                         onChange={handleChange}
                         required
-                        className="w-full mt-1 p-2 border rounded-md focus:outline-none focus:ring focus:ring-orange-300"
+                        className="w-full mt-1 p-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-black/50 text-gray-600"
                         placeholder="Enter country..."
                     />
                 </div>
@@ -104,7 +104,7 @@ const AddAddress = () => {
                         onChange={handleChange}
                         required
                         pattern="[0-9]{5,6}"
-                        className="w-full mt-1 p-2 border rounded-md focus:outline-none focus:ring focus:ring-orange-300"
+                        className="w-full mt-1 p-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-black/50 text-gray-600"
                         placeholder="Enter zip code..."
                     />
                 </div>
@@ -119,7 +119,7 @@ const AddAddress = () => {
                         onChange={handleChange}
                         required
                         pattern="[0-9]{10}"
-                        className="w-full mt-1 p-2 border rounded-md focus:outline-none focus:ring focus:ring-orange-300"
+                        className="w-full mt-1 p-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-black/50 text-gray-600"
                         placeholder="Enter mobile number..."
                     />
                 </div>

@@ -33,7 +33,7 @@ const Address = () => {
                 {
                     tabs.map((tab) => (
                         <div key={tab.id}>
-                            <button className="font-medium text-gray-900" onClick={() => setSelectedTab(tab.tabDesc)}>{tab.tabDesc}</button>
+                            <button className="font-medium text-gray-800 md:text-xl" onClick={() => setSelectedTab(tab.tabDesc)}>{tab.tabDesc}</button>
                             <div
                                 className={`w-full scale-x-110 h-[2px] bg-orange-500 ${selectedTab === tab.tabDesc ? "block" : "hidden"
                                     }`}

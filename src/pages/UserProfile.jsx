@@ -11,7 +11,7 @@ const UserProfile = () => {
   return (
     <div className="mt-[120px]">
       <BreadCrumbs />
-      <h1 className="text-gray-600  text-xl font-semibold  py-2 px-6 sm:px-20 lg:px-32  border-b">ACCOUNT SETTING</h1>
+      <h1 className="text-gray-600  text-xl font-semibold  py-4 md:py-5 px-6 sm:px-20 lg:px-32  border-b">ACCOUNT SETTING</h1>
       <div className="container mt-10">
         {/* nested links */}
         <div className="flex items-start gap-2">
@@ -20,7 +20,7 @@ const UserProfile = () => {
               to="/profile"
               end
               className={({ isActive }) =>
-                `py-1.5 px-2 rounded-sm flex items-center gap-2 text-gray-600 font-semibold border ${isActive ? "border-r-orange-500 border-r-4 " : ""
+                `py-1.5 px-2 rounded-sm flex items-center gap-2 text-gray-600 font-medium border ${isActive ? "border-r-orange-500 border-r-4 " : ""
                 }`
               }
             >
@@ -32,7 +32,7 @@ const UserProfile = () => {
               to="address"
               end
               className={({ isActive }) =>
-                `py-1.5 px-2 rounded-sm flex items-center gap-2 text-gray-600 font-semibold border ${isActive ? "border-r-orange-500 border-r-4 " : ""
+                `py-1.5 px-2 rounded-sm flex items-center gap-2 text-gray-600 font-medium border ${isActive ? "border-r-orange-500 border-r-4 " : ""
                 }`
               }
             >
