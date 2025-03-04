@@ -2,6 +2,7 @@ import { Minus, Plus, ShoppingCartIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import axiosInstance from "../../utils/axiosInstance";
 import toast from "react-hot-toast";
+import { Link } from "react-router-dom"
 
 const ActionsButtons = ({ product }) => {
     const [itemCount, setItemCount] = useState(product?.minimumOrderQuantity || 1);
@@ -62,9 +63,9 @@ const ActionsButtons = ({ product }) => {
             </div>
 
             {/* Buy Now Button */}
-            <button className="w-full lg:w-auto text-nowrap rounded px-10 py-2 text-orange-500 border-2 border-orange-500 font-medium tracking-tighter">
+            <Link to="/checkout" className="w-full lg:w-auto text-nowrap rounded px-10 py-2 text-orange-500 border-2 border-orange-500 font-medium tracking-tighter">
                 BUY NOW
-            </button>
+            </Link>
         </div>
     );
 };

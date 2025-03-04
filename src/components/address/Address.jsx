@@ -29,7 +29,7 @@ const Address = () => {
 
     return (
         <div>
-            <div className="flex items-center gap-10">
+            <div className="flex items-center justify-center gap-10 border-b border-black/30">
                 {
                     tabs.map((tab) => (
                         <div key={tab.id}>

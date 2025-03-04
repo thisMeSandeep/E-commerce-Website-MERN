@@ -37,7 +37,8 @@ const Navbar = () => {
 
         {/* Logo */}
         <Link to="/">
-          <img src={assets.logo} alt="logo" className="w-28 md:w-32" />
+          {/* <img src={assets.logo} alt="logo" className="w-28 md:w-32" /> */}
+           <div className="font-bold text-2xl md:text-3xl"><span className="text-orange-500">D</span><span>ropCart</span></div>
         </Link>
 
         {/* Desktop Navlinks */}

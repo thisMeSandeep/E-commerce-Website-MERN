@@ -19,6 +19,8 @@ import ScrollToTop from "./utils/ScrollToTop.jsx"
 import ErrorPage from "./pages/ErrorPage.jsx"
 import Avatar from "./components/commonComponents/Avatar.jsx"
 import Address from "./components/address/Address.jsx"
+import CheckoutPage from "./pages/CheckoutPage.jsx"
+
 
 
 
@@ -52,6 +54,7 @@ const App = () => {
           <Route index element={<Avatar />} />
           <Route path="address" element={<Address />} />
         </Route>
+        <Route path="/checkout" element={<CheckoutPage />} />
 
         <Route path="/orders" element={<MyOrdersPage />} />
       </Routes >
