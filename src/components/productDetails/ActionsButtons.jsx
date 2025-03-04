@@ -2,10 +2,14 @@ import { Minus, Plus, ShoppingCartIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import axiosInstance from "../../utils/axiosInstance";
 import toast from "react-hot-toast";
-import { Link } from "react-router-dom"
+import useCheckoutStore from "../../store/checkoutStore";
+import { useNavigate } from "react-router-dom";
+
 
 const ActionsButtons = ({ product }) => {
     const [itemCount, setItemCount] = useState(product?.minimumOrderQuantity || 1);
+    const setSingleProduct = useCheckoutStore((state) => state.setSingleProduct);
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (product) {
@@ -36,6 +40,16 @@ const ActionsButtons = ({ product }) => {
         }
     };
 
+    //handle buy now
+    const handleBuyNow = () => {
+        const productDetails = {
+            product,
+            itemCount
+        }
+        setSingleProduct(productDetails);
+        navigate("/checkout")
+    }
+
     return (
         <div className="flex flex-col lg:flex-row items-center justify-between gap-4 mt-10">
             {/* Item Count Controls */}
@@ -63,9 +77,9 @@ const ActionsButtons = ({ product }) => {
             </div>
 
             {/* Buy Now Button */}
-            <Link to="/checkout" className="w-full lg:w-auto text-nowrap rounded px-10 py-2 text-orange-500 border-2 border-orange-500 font-medium tracking-tighter">
+            <button onClick={handleBuyNow} className="w-full lg:w-auto text-nowrap rounded px-10 py-2 text-orange-500 border-2 border-orange-500 font-medium tracking-tighter">
                 BUY NOW
-            </Link>
+            </button>
         </div>
     );
 };

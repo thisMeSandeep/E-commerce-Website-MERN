@@ -23,7 +23,7 @@ const paymentOptions = [
 
 const CheckoutPage = () => {
 
-  const [paymentType, setPaymentType] = useState(2);
+  const [paymentType, setPaymentType] = useState("Online Payment");
 
   const selectedAddress = useAddressStore((state) => state.selectedAddress);
   const user = useUserStore((state) => state.user);
@@ -33,11 +33,9 @@ const CheckoutPage = () => {
     <div className="mt-24 md:mt-[120px]">
       <BreadCrumbs />
 
-      {/* address */}
       <div className="container my-10 flex flex-col md:flex-row items-start justify-between gap-5">
-
+        {/* address */}
         <div className="">
-          {/* address */}
           <div className="flex-1">
             <h1 className="text-gray-700 text-xl font-medium">Billing Information</h1>
             <div className="mt-8 grid grid-cols-1 md:grid-cols-2  gap-5">
@@ -99,11 +97,11 @@ const CheckoutPage = () => {
           <div className="flex items-center justify-center gap-5 mt-5 border rounded-sm px-4 py-2">
             {
               paymentOptions.map((payment) => (
-                <div key={payment.id} className="flex flex-col items-center gap-5 border-r border-l p-2 cursor-pointer " onClick={() => setPaymentType(payment.id)}>
+                <div key={payment.id} className="flex flex-col items-center gap-5 border-r border-l p-2 cursor-pointer " onClick={() => setPaymentType(payment.type)}>
                   <img src={payment.icon} alt="payment option" className="size-8" />
                   <p className="text-gray-800">{payment.type}</p>
                   <div className="size-4 rounded-full border border-black/80 flex items-center justify-center">
-                    <div className={`size-2 border-4 rounded-full border-orange-500 ${paymentType === payment.id ? "block" : "hidden"} `}></div>
+                    <div className={`size-2 border-4 rounded-full border-orange-500 ${paymentType === payment.type ? "block" : "hidden"} `}></div>
                   </div>
                 </div>
               ))
@@ -113,7 +111,7 @@ const CheckoutPage = () => {
         </div>
 
         {/* checkout */}
-        <PlaceOrderCard />
+        <PlaceOrderCard paymentType={paymentType} />
 
       </div>
     </div>

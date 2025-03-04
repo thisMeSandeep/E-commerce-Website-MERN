@@ -1,10 +1,9 @@
-import { Link } from "react-router-dom"
+
 const CheckoutCard = ({ totalPrice }) => {
 
     const discount = (5 * totalPrice) / 100;
     const tax = (12 * (totalPrice - discount)) / 100;
     const total = totalPrice - discount + tax;
-
 
     return (
         <div className="w-full  lg:max-w-md mx-auto bg-white p-6 rounded-lg shadow-md">
@@ -33,9 +32,9 @@ const CheckoutCard = ({ totalPrice }) => {
                 </div>
             </div>
 
-            <Link to="/checkout" className="inline-block text-center w-full mt-4 bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 rounded-lg transition">
+            <button className="inline-block text-center w-full mt-4 bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 rounded-lg transition">
                 Proceed to Checkout →
-            </Link>
+            </button>
 
             {/* Coupon Code Section */}
             <div className="mt-4">
