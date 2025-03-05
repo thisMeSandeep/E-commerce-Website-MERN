@@ -47,7 +47,7 @@ const ExploreCategories = () => {
                             </p>
 
                             {/* Explore Button */}
-                            <button className="w-full sm:w-36 bg-gradient-to-br from-orange-500 to-orange-700 px-6 py-2 text-md text-white font-medium rounded-lg shadow-md transition-all duration-300 hover:brightness-110 hover:scale-[1.05]" onClick={() => handleOnClick(item.category)}>
+                            <button className="w-full sm:w-36  px-6 py-2 text-md font-medium rounded-sm text-gray-700 border transition-all duration-300  hover:scale-[1.05]" onClick={() => handleOnClick(item.category)}>
                                 Explore
                             </button>
                         </div>

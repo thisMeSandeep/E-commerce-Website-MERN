@@ -1,23 +1,23 @@
 import useCheckoutStore from "../../store/checkoutStore";
 import { Link } from "react-router-dom";
+// import axiosInstance from "../../utils/axiosInstance";
+// import toast from "react-hot-toast";
 
-const PlaceOrderCard = ({ paymentType }) => {
+const PlaceSingleOrderCard = ({ paymentType }) => {
 
-    const productDetails = useCheckoutStore((state) => state.productDetails);
+    const singleProduct = useCheckoutStore((state) => state.singleProduct);
+    console.log("single Product", singleProduct)
 
-    const checkoutType = useCheckoutStore((state) => state.checkoutType);
+    console.log(singleProduct.quantity)
+    console.log(singleProduct.discountPercentage)
+    console.log(singleProduct.price)
 
-    console.log(productDetails);
+    const discount = singleProduct.quantity * (singleProduct.discountPercentage * singleProduct.originalPrice / 100);
+    const tax = 12 * (singleProduct.quantity * singleProduct.originalPrice - discount) / 100;
 
-    // total price
-    const totalPrice = productDetails?.itemCount * productDetails?.product.price
-    // calculate discount 
-    const discount = (productDetails?.product.discountPercentage * productDetails?.itemCount * productDetails?.product.price) / 100;
-    // tax
-    const tax = (12 * (totalPrice - discount)) / 100;
-    // total price to pay
-    const total = totalPrice - discount + tax;
-
+    const totalPrice = singleProduct.quantity * singleProduct?.originalPrice;
+    // final price to pay
+    const finalPrice = totalPrice + tax - discount;
 
 
     return (
@@ -25,13 +25,11 @@ const PlaceOrderCard = ({ paymentType }) => {
             <h2 className="text-xl font-semibold mb-4 text-gray-700">Order Summary</h2>
 
             {/* product preview */}
-            {checkoutType === "single" &&
-                <div className="flex items-center gap-5 my-5 text-gray-700 border-b border-orange-500 pb-2">
-                    <Link to={`/product-details/${productDetails?.product._id}`} className="size-8 rounded-full border-2 "><img src={productDetails?.product?.thumbnail} alt="" /> </Link>
-                    <p>{productDetails?.product.title}</p>
-                    <p>{productDetails?.itemCount}X{productDetails.product.price}= ${totalPrice.toFixed(2)}</p>
-                </div>
-            }
+            <div className="flex items-center gap-5 my-5 text-gray-700 border-b border-orange-500 pb-2">
+                <Link to={`/product-details/${singleProduct.productId}`} className="size-8 rounded-full border-2 "><img src={singleProduct.thumbnail} alt="" /> </Link>
+                <p>{singleProduct.title}</p>
+                <p>{singleProduct.quantity}X{singleProduct.originalPrice}= ${totalPrice.toFixed(2)}</p>
+            </div>
 
             <div className="space-y-2 text-gray-700">
                 <div className="flex justify-between">
@@ -53,7 +51,7 @@ const PlaceOrderCard = ({ paymentType }) => {
                 <hr className="my-2" />
                 <div className="flex justify-between font-bold text-lg">
                     <span>Total</span>
-                    <span>${total.toFixed(2)} USD</span>
+                    <span>${finalPrice.toFixed(2)} USD</span>
                 </div>
             </div>
 
@@ -64,4 +62,4 @@ const PlaceOrderCard = ({ paymentType }) => {
     );
 };
 
-export default PlaceOrderCard;
+export default PlaceSingleOrderCard;

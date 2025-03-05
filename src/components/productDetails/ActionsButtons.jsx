@@ -2,28 +2,29 @@ import { Minus, Plus, ShoppingCartIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import axiosInstance from "../../utils/axiosInstance";
 import toast from "react-hot-toast";
-import useCheckoutStore from "../../store/checkoutStore";
 import { useNavigate } from "react-router-dom";
+import useCheckoutStore from "../../store/checkoutStore";
 
 
 const ActionsButtons = ({ product }) => {
-    const [itemCount, setItemCount] = useState(product?.minimumOrderQuantity || 1);
+    const [itemQuantity, setItemQuantity] = useState(product?.minimumOrderQuantity || 1);
+
     const setSingleProduct = useCheckoutStore((state) => state.setSingleProduct);
+
+    const discountedPrice = product.price - (product.discountPercentage * product.price / 100)
+
     const navigate = useNavigate();
 
     useEffect(() => {
         if (product) {
-            setItemCount(product.minimumOrderQuantity);
+            setItemQuantity(product.minimumOrderQuantity);
         }
     }, [product]);
-
-    // caluclate discounted price
-    const discountedPrice = product.price - (product.price * product.discountPercentage) / 100;
 
     // add item to cart
     const addItemToCart = async () => {
         const cartData = {
-            quantity: itemCount,
+            quantity: itemQuantity,
             title: product.title,
             price: discountedPrice.toFixed(2),
             thumbnail: product.thumbnail,
@@ -43,8 +44,12 @@ const ActionsButtons = ({ product }) => {
     //handle buy now
     const handleBuyNow = () => {
         const productDetails = {
-            product,
-            itemCount
+            productId: product._id,
+            title: product.title,
+            thumbnail: product.thumbnail,
+            originalPrice: product.price,
+            discountPercentage: product.discountPercentage,
+            quantity: itemQuantity
         }
         setSingleProduct(productDetails);
         navigate("/checkout")
@@ -57,12 +62,12 @@ const ActionsButtons = ({ product }) => {
                 <div className="flex items-center text-gray-700 gap-5 border-2 px-2 py-2 rounded">
                     <Minus
                         className="size-4 cursor-pointer"
-                        onClick={() => setItemCount(prev => Math.max(product.minimumOrderQuantity, prev - 1))}
+                        onClick={() => setItemQuantity(prev => Math.max(product.minimumOrderQuantity, prev - 1))}
                     />
-                    <p>{itemCount}</p>
+                    <p>{itemQuantity}</p>
                     <Plus
                         className="size-4 cursor-pointer"
-                        onClick={() => setItemCount(prev => prev + 1)}
+                        onClick={() => setItemQuantity(prev => prev + 1)}
                     />
                 </div>
 

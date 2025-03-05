@@ -5,12 +5,14 @@ import useUserStore from "../store/userStore";
 import { Link } from "react-router-dom";
 import cashImage from "../assets/cash.png"
 import dollarImage from "../assets/dollar.png"
-import PlaceOrderCard from "../components/commonComponents/PlaceOrderCard";
+import PlaceSingleOrderCard from "../components/commonComponents/PlaceSingleOrderCard";
+import useCheckoutStore from "../store/checkoutStore";
+import PlaceCartItemsOrderCard from "../components/commonComponents/PlaceCartItemsOrderCard";
 
 const paymentOptions = [
   {
     id: 1,
-    type: "Cash On Delivery",
+    type: "COD",
     icon: cashImage
   },
   {
@@ -27,6 +29,8 @@ const CheckoutPage = () => {
 
   const selectedAddress = useAddressStore((state) => state.selectedAddress);
   const user = useUserStore((state) => state.user);
+  const checkoutType = useCheckoutStore((state) => state.checkoutType);
+  console.log(checkoutType)
 
 
   return (
@@ -94,10 +98,10 @@ const CheckoutPage = () => {
           <Link to='/profile/address' className="text-blue-600 underline underline-offset-4 inline-block mt-5">Ship into different address?</Link>
           {/* address ends here */}
           {/* payment option */}
-          <div className="flex items-center justify-center gap-5 mt-5 border rounded-sm px-4 py-2">
+          <div className="flex items-start justify-between gap-5 mt-5 border rounded-sm px-4 py-2">
             {
               paymentOptions.map((payment) => (
-                <div key={payment.id} className="flex flex-col items-center gap-5 border-r border-l p-2 cursor-pointer " onClick={() => setPaymentType(payment.type)}>
+                <div key={payment.id} className="w-full flex flex-col items-center gap-5 border-r border-l p-2 cursor-pointer " onClick={() => setPaymentType(payment.type)}>
                   <img src={payment.icon} alt="payment option" className="size-8" />
                   <p className="text-gray-800">{payment.type}</p>
                   <div className="size-4 rounded-full border border-black/80 flex items-center justify-center">
@@ -111,7 +115,7 @@ const CheckoutPage = () => {
         </div>
 
         {/* checkout */}
-        <PlaceOrderCard paymentType={paymentType} />
+        {checkoutType === "single" ? <PlaceSingleOrderCard paymentType={paymentType} /> : <PlaceCartItemsOrderCard />}
 
       </div>
     </div>

@@ -1,14 +1,18 @@
-import {X } from "lucide-react";
+import { X } from "lucide-react";
 import toast from "react-hot-toast";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axiosInstance from "../utils/axiosInstance";
 import { useEffect, useState } from "react";
-import CheckoutCard from "../components/commonComponents/CheckoutCard";
 import BreadCrumbs from "../components/commonComponents/BreadCrumbs";
+import useCheckoutStore from "../store/checkoutStore";
 
 
 const ShoppingCart = () => {
   const [cartItems, setCartItems] = useState([]);
+  const setCartCheckout = useCheckoutStore((state) => state.setCartCheckout);
+  const navigate = useNavigate();
+
+  console.log(cartItems)
 
   const fetchCartData = async () => {
     try {
@@ -25,8 +29,6 @@ const ShoppingCart = () => {
     fetchCartData();
   }, []);
 
-  // Calculate total price
-  const totalPrice = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
   // Remove item from cart
   const removeCartItem = async (id) => {
@@ -42,7 +44,12 @@ const ShoppingCart = () => {
     }
   };
 
-  // checkout data
+  // handle checkout now
+  const handleCheckout = () => {
+    setCartCheckout(cartItems);
+    navigate("/checkout")
+  }
+
 
 
   return (
@@ -51,7 +58,7 @@ const ShoppingCart = () => {
       <BreadCrumbs />
 
       {/* Cart Details */}
-      <div className="container mt-10 flex flex-col lg:flex-row items-start gap-10">
+      <div className="container my-10 flex flex-col  gap-10">
         {cartItems.length === 0 ? (
           <div className="text-center text-gray-500 text-lg py-10">Your cart is empty.</div>
         ) : (
@@ -94,7 +101,9 @@ const ShoppingCart = () => {
         )}
 
         {/* Checkout Section */}
-        {cartItems.length > 0 && <CheckoutCard totalPrice={totalPrice} />}
+        {cartItems.length > 0 && <button onClick={handleCheckout} className="bg-orange-500 text-white font-medium px-10 py-2 rounded-sm  w-fit self-end">Checkout Now</button>}
+
+
       </div>
     </div>
   );
