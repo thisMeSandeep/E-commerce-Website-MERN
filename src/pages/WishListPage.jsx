@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axiosInstance from "../utils/axiosInstance";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
-import { ChevronRight, Home, Plus, X } from "lucide-react";
+import { Plus, X } from "lucide-react";
 import BreadCrumbs from "../components/commonComponents/BreadCrumbs";
 
 const WishListPage = () => {
@@ -46,22 +46,14 @@ const WishListPage = () => {
         toast.error("Failed to fetch product details");
         return;
       }
-
       const product = data.product;
-
-      // Calculate discounted price
-      const discountPercentage = product.discountPercentage || 0;
-      const discountedPrice = product.price - (discountPercentage * product.price) / 100;
 
       const cartData = {
         quantity: product.minimumOrderQuantity,
-        title: product.title,
-        price: discountedPrice.toFixed(2),
-        thumbnail: product.thumbnail,
         productId: product._id,
       };
 
-      const response = await axiosInstance.post("/api/cart/addItemToCart", cartData);
+      const response = await axiosInstance.post("/api/cart/add-Item-ToCart", cartData);
       if (response.data.success) {
         toast.success(response.data.message);
       }

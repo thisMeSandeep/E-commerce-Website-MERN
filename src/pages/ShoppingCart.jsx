@@ -1,22 +1,25 @@
-import { X } from "lucide-react";
 import toast from "react-hot-toast";
+import emptyCartImage from "../assets/emptyCart.png"
 import { Link, useNavigate } from "react-router-dom";
 import axiosInstance from "../utils/axiosInstance";
 import { useEffect, useState } from "react";
 import BreadCrumbs from "../components/commonComponents/BreadCrumbs";
 import useCheckoutStore from "../store/checkoutStore";
+import { Trash2 } from "lucide-react";
 
 
 const ShoppingCart = () => {
   const [cartItems, setCartItems] = useState([]);
-  const setCartCheckout = useCheckoutStore((state) => state.setCartCheckout);
   const navigate = useNavigate();
+
+  const setOrder = useCheckoutStore((state) => state.setOrder);
+  const setCheckoutType = useCheckoutStore((state) => state.setCheckoutType)
 
   console.log(cartItems)
 
   const fetchCartData = async () => {
     try {
-      const { data } = await axiosInstance.get("/api/cart/getCartItems");
+      const { data } = await axiosInstance.get("/api/cart/get-Cart-Items");
       if (data.success) {
         setCartItems(data.cart);
       }
@@ -24,7 +27,6 @@ const ShoppingCart = () => {
       toast.error(err.message);
     }
   };
-
   useEffect(() => {
     fetchCartData();
   }, []);
@@ -33,7 +35,7 @@ const ShoppingCart = () => {
   // Remove item from cart
   const removeCartItem = async (id) => {
     try {
-      const { data } = await axiosInstance.delete(`/api/cart/removeItem/${id}`);
+      const { data } = await axiosInstance.delete(`/api/cart/remove-Item/${id}`);
       if (data.success) {
         toast.success(data.message);
         setCartItems((prev) => prev.filter((item) => item._id !== id));
@@ -46,7 +48,14 @@ const ShoppingCart = () => {
 
   // handle checkout now
   const handleCheckout = () => {
-    setCartCheckout(cartItems);
+    const orderData = cartItems.map((item) => {
+      return {
+        product: item.productDetails,
+        quantity: item.quantity
+      }
+    })
+    setOrder(orderData);
+    setCheckoutType("cartItems")
     navigate("/checkout")
   }
 
@@ -60,43 +69,62 @@ const ShoppingCart = () => {
       {/* Cart Details */}
       <div className="container my-10 flex flex-col  gap-10">
         {cartItems.length === 0 ? (
-          <div className="text-center text-gray-500 text-lg py-10">Your cart is empty.</div>
+          <div className="text-center text-gray-500 text-lg  flex flex-col items-center ">
+            {/* empty cart message */}
+            <img src={emptyCartImage} alt="empty cart" className="max-w-[500px] object-cover " />
+            <h1 className="text-orange-500 text-xl">Empty cart!</h1>
+            <Link to="/products" className="mt-2 border border-orange-500 px-14 py-2 rounded-sm text-orange-500 font-semibold shadow-sm">Visit store</Link>
+          </div>
         ) : (
-          <div className="border shadow rounded-md py-4 flex-1">
-            <h1 className="text-gray-600 text-xl font-medium px-4">Shopping Cart</h1>
-
-            {/* Cart Table Heading */}
-            <div className="mt-5 grid grid-cols-5 gap-2 md:gap-5 bg-blue-100/50 py-2 sm:py-3 place-items-center text-center text-[12px] sm:text-sm font-medium text-gray-500 text-nowrap px-1 ">
-              <p>PRODUCTS</p>
-              <p>PRICE</p>
-              <p>QUANTITY</p>
-              <p>SUB-TOTAL</p>
-              <X />
+          <div className="py-4 flex-1">
+            <h1 className="text-xl md:text-2xl text-gray-700 font-medium">Shopping Cart</h1>
+            {/* table */}
+            <div className="overflow-x-auto mt-5">
+              <table className="min-w-full border-collapse border border-gray-200">
+                <thead>
+                  <tr className="bg-orange-500 text-white text-left text-nowrap">
+                    <th className="p-3">Product</th>
+                    <th className="p-3">Title</th>
+                    <th className="p-3">Original Price</th>
+                    <th className="p-3">Offer Price</th>
+                    <th className="p-3">Quantity</th>
+                    <th className="p-3">Sub-Total</th>
+                    <th className="p-3 text-center">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {cartItems.map((item) => (
+                    <tr key={item._id} className="border-t border-gray-200 hover:bg-gray-100">
+                      <td className="p-3">
+                        <Link to={`/product-details/${item.productId}`} className="block w-16 h-16">
+                          <img
+                            src={item.productDetails.thumbnail}
+                            alt={item.productDetails.title}
+                            className="w-full h-full object-cover rounded"
+                          />
+                        </Link>
+                      </td>
+                      <td className="p-3">{item.productDetails.title}</td>
+                      <td className="p-3">₹{item.productDetails.price.toFixed(2)}</td>
+                      <td className="p-3">₹{(
+                        item.productDetails.price -
+                        (item.productDetails.discountPercentage * item.productDetails.price) / 100
+                      ).toFixed(2)}</td>
+                      <td className="p-3 text-center">{item.quantity}</td>
+                      <td className="p-3">₹{(
+                        item.quantity * (item.productDetails.price - (item.productDetails.discountPercentage * item.productDetails.price) / 100)
+                      ).toFixed(2)}</td>
+                      <td className="p-3 text-center">
+                        <button onClick={() => removeCartItem(item._id)} className="text-red-500 hover:text-red-700">
+                          <Trash2 size={20} />
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
 
-            {/* Cart Items */}
-            {cartItems.map((item) => (
-              <div key={item._id} className=" grid grid-cols-5 gap-5 place-items-center border-b py-1">
-                {/* Image and Name */}
-                <div className="flex  items-center gap-4">
-                  <Link to={`/product-details/${item.productId}`}>
-                    <img src={item.thumbnail} alt={item.title} className="size-12 md:size-16 rounded-full  object-cover" />
-                  </Link>
-                  <p className="text-gray-700 hidden md:block ">{item.title}</p>
-                </div>
-
-                {/* Price */}
-                <p className="text-gray-700">${item.price.toFixed(2)}</p>
-
-                {/* Quantity */}
-                <span className="text-gray-700">{item.quantity}</span>
-
-                {/* Subtotal */}
-                <p className="text-gray-700">${(item.price * item.quantity).toFixed(2)}</p>
-                {/* remove icon */}
-                <X className="text-red-500 cursor-pointer" onClick={() => removeCartItem(item._id)} />
-              </div>
-            ))}
           </div>
         )}
 

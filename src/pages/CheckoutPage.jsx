@@ -115,7 +115,7 @@ const CheckoutPage = () => {
         </div>
 
         {/* checkout */}
-        {checkoutType === "single" ? <PlaceSingleOrderCard paymentType={paymentType} /> : <PlaceCartItemsOrderCard />}
+        {checkoutType === "single" ? <PlaceSingleOrderCard paymentType={paymentType} /> : <PlaceCartItemsOrderCard paymentType={paymentType} />}
 
       </div>
     </div>

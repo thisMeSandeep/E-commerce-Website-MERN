@@ -1,31 +1,55 @@
 import { Link } from "react-router-dom";
 import useCheckoutStore from "../../store/checkoutStore";
+import axiosInstance from "../../utils/axiosInstance";
+import toast from "react-hot-toast";
 
-const PlaceCartItemsOrderCard = () => {
+const PlaceCartItemsOrderCard = ({ paymentType }) => {
 
-    const cartItems = useCheckoutStore((state) => state.cartItems);
+    const cartorder = useCheckoutStore((state) => state.order);
 
-    console.log(cartItems)
+    console.log(cartorder)
 
-    // totalprice
-    const totalPrice = cartItems.reduce((acc, item) => acc + item.quantity*item.price, 0)
-    // tax
-    const tax = 12 * (totalPrice / 100);
-    // total
-    const total = totalPrice + tax;
 
+    const subtotal = cartorder.reduce((acc, item) => acc + item.quantity * item.product.price, 0) //total price (quantity*product price)
+    const discount = cartorder.reduce((acc, item) => acc + item.quantity * item.product.discountPercentage * item.product.price / 100, 0)  // toatl discount in amount of all products
+    const amount = subtotal - discount; //amount to be paid
+
+
+    // place order
+    const handlePlaceOrder = async () => {
+        // data being send to backend
+        const order = cartorder.map((item) => {
+            return {
+                productId: item.product._id,
+                quantity: item.quantity
+            }
+        });
+        if (paymentType === "COD") {
+            try {
+                const { data } = await axiosInstance.post("/api/order/cod-order", { order });
+                if (data.success) {
+                    toast.success(data.message)
+                }
+            } catch (err) {
+                toast.error(err?.response?.data?.message)
+            }
+
+        } else {
+            console.log("online payment")
+        }
+    }
 
     return (
         <div className="w-full lg:max-w-md mx-auto bg-white p-6 rounded-lg shadow-md">
             <h2 className="text-xl font-semibold mb-4">Order Summary</h2>
 
-            {/* products review */}
+            products review
             {
-                cartItems.map((item) => (
-                    <div key={item._id} className="flex items-center gap-5 my-5 text-gray-700 pb-2">
-                        <Link to={`/product-details/${item.productId}`} className="size-8 rounded-full border-2 "><img src={item.thumbnail} alt="" /> </Link>
-                        <p>{item.title}</p>
-                        <p>{item.quantity}X{item.price}= ${(item.quantity*item.price).toFixed(2)}</p>
+                cartorder.map((item) => (
+                    <div key={item.product._id} className="flex items-center gap-5 my-5 text-gray-700 pb-2">
+                        <Link to={`/product-details/${item.product._id}`} className="size-8 rounded-full border-2 "><img src={item.product.thumbnail} alt="" /> </Link>
+                        <p>{item.product.title}</p>
+                        <p>{item.quantity}X{item.product.price}= ${(item.quantity * item.product.price).toFixed(2)}</p>
                     </div>
                 ))
             }
@@ -33,25 +57,26 @@ const PlaceCartItemsOrderCard = () => {
             <div className="space-y-2 text-gray-700  border-t border-orange-500 py-1">
                 <div className="flex justify-between">
                     <span>Sub-total</span>
-                    <span>${totalPrice?.toFixed(2)}</span>
+                    <span>${subtotal.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between">
                     <span>Shipping</span>
                     <span className="text-green-500">Free</span>
                 </div>
                 <div className="flex justify-between">
-                    <span>Tax</span>
-                    <span>${tax.toFixed(2)}</span>
+                    <span>Discount</span>
+                    <span className="text-green-500">-${discount.toFixed(2)}</span>
                 </div>
                 <hr className="my-2" />
                 <div className="flex justify-between font-bold text-lg">
                     <span>Total</span>
-                    <span>${total.toFixed(2)} USD</span>
+                    <span>${amount.toFixed(2)} USD</span>
                 </div>
             </div>
 
             {/* Proceed to Checkout Button */}
             <button
+                onClick={handlePlaceOrder}
                 className="inline-block text-center w-full mt-4 bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 rounded-lg transition"
             >
                 Place Order →

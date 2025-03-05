@@ -9,9 +9,10 @@ import useCheckoutStore from "../../store/checkoutStore";
 const ActionsButtons = ({ product }) => {
     const [itemQuantity, setItemQuantity] = useState(product?.minimumOrderQuantity || 1);
 
-    const setSingleProduct = useCheckoutStore((state) => state.setSingleProduct);
+    const setOrder = useCheckoutStore((state) => state.setOrder);
+    const setCheckoutType = useCheckoutStore((state) => state.setCheckoutType)
 
-    const discountedPrice = product.price - (product.discountPercentage * product.price / 100)
+    // const discountedPrice = product.price - (product.discountPercentage * product.price / 100)
 
     const navigate = useNavigate();
 
@@ -25,14 +26,11 @@ const ActionsButtons = ({ product }) => {
     const addItemToCart = async () => {
         const cartData = {
             quantity: itemQuantity,
-            title: product.title,
-            price: discountedPrice.toFixed(2),
-            thumbnail: product.thumbnail,
             productId: product._id
         };
 
         try {
-            const { data } = await axiosInstance.post("/api/cart/addItemToCart", cartData);
+            const { data } = await axiosInstance.post("/api/cart/add-Item-ToCart", cartData);
             if (data.success) {
                 toast.success(data.message);
             }
@@ -43,15 +41,12 @@ const ActionsButtons = ({ product }) => {
 
     //handle buy now
     const handleBuyNow = () => {
-        const productDetails = {
-            productId: product._id,
-            title: product.title,
-            thumbnail: product.thumbnail,
-            originalPrice: product.price,
-            discountPercentage: product.discountPercentage,
+        const orderData = [{
+            product,
             quantity: itemQuantity
-        }
-        setSingleProduct(productDetails);
+        }];
+        setOrder(orderData);
+        setCheckoutType("single")
         navigate("/checkout")
     }
 
