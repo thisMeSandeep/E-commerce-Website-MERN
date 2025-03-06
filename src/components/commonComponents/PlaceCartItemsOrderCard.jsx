@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useCheckoutStore from "../../store/checkoutStore";
 import axiosInstance from "../../utils/axiosInstance";
 import toast from "react-hot-toast";
@@ -6,6 +6,7 @@ import toast from "react-hot-toast";
 const PlaceCartItemsOrderCard = ({ paymentType }) => {
 
     const cartorder = useCheckoutStore((state) => state.order);
+    const navigate = useNavigate()
 
     // data  send to backend
     const orderDetails = cartorder.map((item) => {
@@ -39,6 +40,7 @@ const PlaceCartItemsOrderCard = ({ paymentType }) => {
 
                     if (data.success) {
                         toast.success(data.message);
+                        navigate("/checkout-success")
                     } else {
                         toast.error("Payment verification failed");
                     }
@@ -60,6 +62,7 @@ const PlaceCartItemsOrderCard = ({ paymentType }) => {
                 const { data } = await axiosInstance.post("/api/order/cod-order", { order: orderDetails });
                 if (data.success) {
                     toast.success(data.message)
+                    navigate("/checkout-success")
                 }
             } catch (err) {
                 toast.error(err?.response?.data?.message)

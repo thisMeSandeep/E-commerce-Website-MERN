@@ -20,8 +20,7 @@ import ErrorPage from "./pages/ErrorPage.jsx"
 import Avatar from "./components/commonComponents/Avatar.jsx"
 import Address from "./components/address/Address.jsx"
 import CheckoutPage from "./pages/CheckoutPage.jsx"
-
-
+import CheckoutSuccessPage from "./pages/CheckoutSuccessPage.jsx"
 
 
 
@@ -55,8 +54,8 @@ const App = () => {
           <Route path="address" element={<Address />} />
         </Route>
         <Route path="/checkout" element={<CheckoutPage />} />
-
         <Route path="/orders" element={<MyOrdersPage />} />
+        <Route path="/checkout-success" element={<CheckoutSuccessPage />} />
       </Routes >
       {/* <Footer /> */}
     </>

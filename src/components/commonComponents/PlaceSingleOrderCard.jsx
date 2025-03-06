@@ -2,11 +2,13 @@ import useCheckoutStore from "../../store/checkoutStore";
 import { Link } from "react-router-dom";
 import axiosInstance from "../../utils/axiosInstance";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const PlaceSingleOrderCard = ({ paymentType }) => {
     const order = useCheckoutStore((state) => state.order);
+    const navigate = useNavigate();
 
-    // Get order details
+    // Get order details of single product
     const details = order[0];
     // data being send to backend
     const orderDetails = [
@@ -39,6 +41,7 @@ const PlaceSingleOrderCard = ({ paymentType }) => {
 
                     if (data.success) {
                         toast.success(data.message);
+                        navigate("/checkout-success")
                     } else {
                         toast.error("Payment verification failed");
                     }
@@ -60,6 +63,7 @@ const PlaceSingleOrderCard = ({ paymentType }) => {
 
                 if (data.success) {
                     toast.success(data.message);
+                    navigate("/checkout-success")
                 }
             } catch (err) {
                 toast.error(err?.response?.data?.message || "Order placement failed");
