@@ -7,26 +7,57 @@ const PlaceCartItemsOrderCard = ({ paymentType }) => {
 
     const cartorder = useCheckoutStore((state) => state.order);
 
-    console.log(cartorder)
+    // data  send to backend
+    const orderDetails = cartorder.map((item) => {
+        return {
+            productId: item.product._id,
+            quantity: item.quantity
+        }
+    });
 
 
     const subtotal = cartorder.reduce((acc, item) => acc + item.quantity * item.product.price, 0) //total price (quantity*product price)
     const discount = cartorder.reduce((acc, item) => acc + item.quantity * item.product.discountPercentage * item.product.price / 100, 0)  // toatl discount in amount of all products
-    const amount = subtotal - discount; //amount to be paid
+    const amount = subtotal - discount; //amount to  pay 
+
+
+    // Initialize Razorpay payment
+    const initPay = async (razOrder) => {
+        const options = {
+            key: "rzp_test_DYjIofeJHP2lJU",
+            amount: razOrder.amount,
+            currency: razOrder.currency,
+            name: "DropCart Payment",
+            description: "Pay online",
+            order_id: razOrder.id,
+            handler: async (response) => {
+                try {
+                    const { data } = await axiosInstance.post("/api/order/verify-payment", {
+                        razorpay_order_id: response.razorpay_order_id,
+                        order: orderDetails,
+                    });
+
+                    if (data.success) {
+                        toast.success(data.message);
+                    } else {
+                        toast.error("Payment verification failed");
+                    }
+                } catch (err) {
+                    console.log(err);
+                    toast.error(err?.response?.data?.message || "Payment verification failed");
+                }
+            },
+        };
+        const rzp = new window.Razorpay(options);
+        rzp.open();
+    };
 
 
     // place order
     const handlePlaceOrder = async () => {
-        // data being send to backend
-        const order = cartorder.map((item) => {
-            return {
-                productId: item.product._id,
-                quantity: item.quantity
-            }
-        });
         if (paymentType === "COD") {
             try {
-                const { data } = await axiosInstance.post("/api/order/cod-order", { order });
+                const { data } = await axiosInstance.post("/api/order/cod-order", { order: orderDetails });
                 if (data.success) {
                     toast.success(data.message)
                 }
@@ -35,7 +66,19 @@ const PlaceCartItemsOrderCard = ({ paymentType }) => {
             }
 
         } else {
-            console.log("online payment")
+            try {
+                const { data } = await axiosInstance.post("/api/order/create-order", { amount });
+
+                if (data.success) {
+                    console.log(data.order);
+                    initPay(data.order);
+                } else {
+                    toast.error("Failed to create Razorpay order");
+                }
+            } catch (err) {
+                console.log(err.message);
+                toast.error("Failed to initialize payment");
+            }
         }
     }
 

@@ -29,7 +29,7 @@ const Newsletter = () => {
                     className="border border-gray-500/30 rounded-md h-full border-r-0 outline-none w-full rounded-r-none px-3 text-gray-500"
                     type="email"
                     placeholder="Enter your email id"
-                    value={email} // Controlled input
+                    value={email} 
                     onChange={(e) => setEmail(e.target.value)}
                 />
                 <button
