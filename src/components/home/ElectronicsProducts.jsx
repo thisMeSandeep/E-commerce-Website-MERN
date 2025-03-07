@@ -3,18 +3,23 @@ import { Link } from "react-router-dom";
 import axiosInstance from "../../utils/axiosInstance";
 import ProductCard from "../commonComponents/ProductCard";
 import { useCategoryContext } from "../../contexts/CategoryContext";
+import ProductSkeleton from "../commonComponents/ProductSkeleton";
 
 const ElectronicsProducts = () => {
   const [electronics, setElectronics] = useState([]);
   const { setCurrentCategory } = useCategoryContext();
+  const [loading, setLoading] = useState(false)
 
   // Fetch electronics products
   const fetchElectronicsProducts = async () => {
     try {
+      setLoading(true)
       const { data } = await axiosInstance.get("/api/products/get-products?category=smartphones");
       setElectronics(data.data);
     } catch (err) {
       console.error("Error fetching products:", err.message);
+    } finally {
+      setLoading(false)
     }
   };
 
@@ -24,13 +29,18 @@ const ElectronicsProducts = () => {
 
   return (
     <div className="my-10 bg-wh">
-      <h1 className="text-2xl font-medium text-gray-700">Smart Phones</h1>
+      <h1 className="text-2xl font-medium text-gray-700 uppercase">Smart Phones</h1>
+      <p className="font-light text-gray-600">Buy latest smartphones from top brands</p>
 
       {/* Product Grid */}
       <div className="mt-10 grid grid-cols-2 gap-8 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 place-items-center">
-        {electronics?.slice(0, 10).map((product) => (
-          <ProductCard key={product._id || product.id} product={product} />
-        ))}
+        {loading
+          ? Array.from({ length: 10 }).map((_, index) => (
+            <ProductSkeleton key={index} />
+          )) : electronics.slice(0, 10).map((product) => (
+            <ProductCard key={product._id} product={product} />
+          ))
+        }
       </div>
 
       {/* Explore More Button */}

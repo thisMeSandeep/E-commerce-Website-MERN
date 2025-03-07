@@ -34,14 +34,14 @@ const FeaturedProducts = () => {
             {/* products */}
             <div className="mt-10 grid grid-cols-1 lg:grid-cols-3 gap-5 px-10">
                 {
-                    products.map((item, index) => (
+                    products.map((item) => (
                         <div key={item.id} className="w-full relative group">
                             <img src={item.image} alt="" className="w-full object-cover" />
                             <div className="absolute inset-0 group-hover:bg-gradient-to-t from-black/50 to-transparent transition-all duration-500" />
                             <div className="absolute z-10 bottom-10 left-10 group-hover:-translate-y-5 transition-all duration-500">
                                 <h1 className="text-2xl text-white font-medium">{item.title}</h1>
                                 <p className="text-sm text-white mt-3 w-[250px]">{item.description}</p>
-                                <Link to={`/product-details/${item.id}`} className="mt-3 flex items-center gap-2 px-4 py-2 rounded-md bg-orange-500 text-white">Buy now
+                                <Link to={`/product-details/${item.id}`} className="mt-3 flex items-center gap-2 px-4 py-2 rounded-md bg-orange-500 text-white w-fit lg:w-full">Buy now
                                     <img src={assets.redirect_icon} alt="" />
                                 </Link>
                             </div>

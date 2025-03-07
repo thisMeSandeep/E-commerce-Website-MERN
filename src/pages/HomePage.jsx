@@ -5,6 +5,7 @@ import ExploreCategories from "../components/home/ExploreCategories"
 import FeaturedProducts from "../components/home/FeaturedProducts"
 import Gaming from "../components/home/Gaming"
 import Newsletter from "../components/commonComponents/Newletter"
+import FreeShipping from "../components/home/FreeShipping"
 
 
 const HomePage = () => {
@@ -14,6 +15,7 @@ const HomePage = () => {
       <PopularProducts />
       <ElectronicsProducts />
       <ExploreCategories />
+      <FreeShipping />
       <FeaturedProducts />
       <Gaming />
       <Newsletter />
