@@ -1,32 +1,47 @@
-import { CircleHelp, Headphones, MapPin, Phone, RefreshCcw } from "lucide-react";
+import { ChevronDown, CircleHelp, Headphones, MapPin, Phone, PlusSquare, RefreshCcw, X } from "lucide-react";
 import categories from "../../data/categories";
 import { useCategoryContext } from "../../contexts/CategoryContext";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const HeaderNav2 = () => {
 
   const { currentCategory, setCurrentCategory } = useCategoryContext();
+  const [toggleSidebar, setToggleSidebar] = useState(false)
   const navigate = useNavigate();
 
-  const handleCategoryChange = (e) => {
-    setCurrentCategory(e.target.value);
+  const handleCategoryChange = (item) => {
+    console.log(item)
+    setCurrentCategory(item);
+    setToggleSidebar(false);
     navigate("/products")
   }
 
   return (
-    <div className="container py-2 md:py-3 border-b border-gray-300 flex justify-between text-gray-600 text-sm">
+    <div className="container py-2 md:py-3 border-b border-gray-300 flex justify-between text-gray-600 gap-5 text-sm overflow-x-hidden no-scrollbar">
 
       <div className=" flex items-center gap-5 md:gap-8">
 
-        {/* category selection */}
-        <select value={currentCategory} className="w-full  rounded-lg bg-white text-gray-700 focus:outline-none cursor-pointer no-scrollbar " onChange={handleCategoryChange}>
-          <option value="all">All</option>
-          {categories.map((item, index) => (
-            <option value={item} key={index} className="text-gray-700 capitalize">
-              {item.replace("-", " ")}
-            </option>
-          ))}
-        </select>
+        {/* category election */}
+        <span onClick={() => setToggleSidebar(prev => !prev)} className="flex items-center gap-5 hover:bg-gray-100 px-5 py-2 rounded-sm cursor-pointer text-nowrap"><p className="uppercase">Shop by category</p><ChevronDown /></span>
+
+        {/* category sidebar */}
+        <div className={`h-screen w-72 absolute left-0 top-0 bottom-0  shadow-md bg-white z-50 py-4 overflow-x-hidden  overflow-y-hidden transition-all duration-500 ${toggleSidebar ? "translate-x-0" : "-translate-x-[100%]"} `}>
+          <div className="flex items-center justify-between px-4">
+            <p className="text-gray-700 text-[16px] font-medium uppercase">shop by categories</p>
+            <X className="cursor-pointer" onClick={() => setToggleSidebar(false)} />
+          </div>
+          <ul className="mt-4 space-y-2 h-[100%] overflow-y-scroll no-scrollbar">
+            {
+              categories.map((item, index) => (
+                <div onClick={() => handleCategoryChange(item)} key={index} className="flex items-center justify-between px-4 cursor-pointer hover:bg-gray-100 py-1">
+                  <p className="uppercase text-[12px] font-semibold text-gray-800">{item.replace("-", " ")}</p>
+                  <PlusSquare className="size-[16px] text-gray-900" />
+                </div>
+              ))
+            }
+          </ul>
+        </div>
 
 
         {/* county  */}
@@ -40,19 +55,6 @@ const HeaderNav2 = () => {
           <RefreshCcw className="size-4 " />
           <span className="hidden lg:inline">Compare</span>
         </p>
-
-        {/* customer support */}
-        <p className="flex items-center gap-2">
-          <Headphones className="size-4 " />
-          <span className="hidden lg:inline text-nowrap">Customer Support</span>
-        </p>
-
-        {/* Need help */}
-        <p className="flex items-center gap-2">
-          <CircleHelp className="size-4 " />
-          <span className="hidden lg:inline">Help</span>
-        </p>
-
 
       </div>
       {/* Mobile number */}
