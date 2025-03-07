@@ -34,7 +34,7 @@ const PopularProducts = () => {
     return (
         <div className="my-10">
             {/* Popular products header */}
-            <div className="flex flex-col lg:flex-row  lg:items-center justify-between ">
+            <div className="flex flex-col lg:flex-row gap-5 lg:items-center justify-between ">
                 <div>
                     <h1 className="text-2xl font-medium text-gray-700 uppercase">Popular Products</h1>
                     <p className=" font-light text-gray-600">
@@ -42,7 +42,7 @@ const PopularProducts = () => {
                     </p>
                 </div>
                 <div className="overflow-x-auto no-scrollbar">
-                    <div className="flex items-center gap-5">
+                    <div className="flex items-center gap-5 ">
                         {categories.slice(2, 10).map((item, index) => (
                             <span
                                 onClick={() => setCategory(item)}
@@ -57,7 +57,7 @@ const PopularProducts = () => {
             </div>
 
             {/* Products Grid */}
-            <div className="mt-10 grid grid-cols-2 gap-8 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 place-items-center">
+            <div className="mt-10 grid grid-cols-2 gap-10 sm:grid-cols-3 md:grid-cols-4   lg:grid-cols-5 ">
                 {loading
                     ? Array.from({ length: 10 }).map((_, index) => (
                         <ProductSkeleton key={index} />

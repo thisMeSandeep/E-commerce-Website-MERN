@@ -107,7 +107,7 @@ const ProductsList = () => {
           <p className="text-gray-500 text-lg">No products found!</p>
         </div>
       ) : (
-        <div className="mt-5 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-5 place-items-center max-h-[1000px] overflow-y-scroll no-scrollbar">
+        <div className="mt-5 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-5  max-h-[1000px] overflow-y-scroll no-scrollbar">
           {products.map((product) => (
             <ProductCard key={product._id} product={product} />
           ))}

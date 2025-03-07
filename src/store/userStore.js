@@ -3,7 +3,7 @@ import axiosInstance from "../utils/axiosInstance";
 import toast from "react-hot-toast";
 
 const useUserStore = create((set) => ({
-  user: true,
+  user: null,
   error: null,
   registerStatus: "idle",
   loginStatus: "idle",
