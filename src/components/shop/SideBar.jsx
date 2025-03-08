@@ -16,6 +16,7 @@ const priceRanges = [
   { label: "$1000+", min: 1000, max: null },
 ];
 
+// slider styling
 const stylingOptions = {
   color: "#f97316",
   "& .MuiSlider-thumb": { backgroundColor: "#f97316" },
@@ -24,6 +25,7 @@ const stylingOptions = {
 };
 
 const SideBar = () => {
+
   const [priceValue, setPriceValue] = useState([0, 1000]);
   const [selectedPriceRange, setSelectedPriceRange] = useState(priceRanges[0]);
   const { currentCategory, setCurrentCategory } = useCategoryContext();
@@ -33,7 +35,7 @@ const SideBar = () => {
   const setMaxPrice = useProductStore((state) => state.setMaxPrice);
   const getProducts = useProductStore((state) => state.getProducts);
 
-  // Debounce for slider to prevent rapid updates
+  // Debounce for slider 
   const debouncedGetProducts = useCallback(
     () => {
       const timer = setTimeout(() => getProducts(), 300);
@@ -72,8 +74,9 @@ const SideBar = () => {
     if (!range.all && range.max) setPriceValue([range.min, range.max]);
   }, []);
 
+
   return (
-    <div className="w-[300px] hidden lg:block h-screen pb-4">
+    <div className=" hidden lg:block  pb-4">
       <h1 className="text-gray-900 font-medium">CATEGORIES</h1>
       <ul className="space-y-2 border-b py-4">
         <li className="flex items-center gap-2">

@@ -7,9 +7,13 @@ const ShopPage = () => {
     <div className="relative">
       <BreadCrumbs />
 
-      <div className="container flex items-start mt-5 h-screen ">
-        <SideBar />
-        <ProductsList />
+      <div className="container  lg:flex items-start gap-5 mt-5 overflow-x-hidden  ">
+        <div className="w-[300px]">
+          <SideBar />
+        </div>
+        <div className="w-full">
+          <ProductsList />
+        </div>
       </div>
     </div>
   )

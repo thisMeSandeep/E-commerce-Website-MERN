@@ -32,6 +32,10 @@ const HeaderNav2 = () => {
               <X className="cursor-pointer hover:text-orange-500 " onClick={() => setToggleSidebar(false)} />
             </div>
             <ul className="mt-4 space-y-2 h-[100%] overflow-y-scroll no-scrollbar">
+              <div onClick={() => handleCategoryChange("all")}  className="flex items-center justify-between px-4 cursor-pointer hover:bg-orange-500 group py-1">
+                <p className="uppercase text-[12px] font-semibold text-gray-600 group-hover:text-white">All Products</p>
+                <PlusSquare className="size-[16px] text-gray-600 group-hover:text-white " />
+              </div>
               {
                 categories.map((item, index) => (
                   <div onClick={() => handleCategoryChange(item)} key={index} className="flex items-center justify-between px-4 cursor-pointer hover:bg-orange-500 group py-1">

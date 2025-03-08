@@ -65,7 +65,7 @@ const ProductsList = () => {
   }, [currentPage])
 
   return (
-    <div className="flex-1">
+    <div className="">
       {/* Upper search boxes */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 justify-between">
         {/* Search Input */}
@@ -107,7 +107,7 @@ const ProductsList = () => {
           <p className="text-gray-500 text-lg">No products found!</p>
         </div>
       ) : (
-        <div className="mt-5 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-5  max-h-[1000px] overflow-y-scroll no-scrollbar">
+        <div className="mt-5 grid grid-cols-2 gap-4 sm:gap-8 sm:grid-cols-3  lg:grid-cols-5 place-items-center  max-h-[1000px] overflow-y-scroll no-scrollbar">
           {products.map((product) => (
             <ProductCard key={product._id} product={product} />
           ))}
@@ -116,7 +116,7 @@ const ProductsList = () => {
 
       {/* Pagination */}
       {totalPages > 1 && !loading && products.length > 0 && (
-        <div className="my-5 flex justify-center gap-2">
+        <div className="my-5 flex items-start gap-2 overflow-x-scroll">
           {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => (
             <button
               key={pageNum}
