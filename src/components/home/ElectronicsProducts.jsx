@@ -57,7 +57,7 @@ const ElectronicsProducts = () => {
       {/* Explore More Button */}
       <Link
         to="/products"
-        className="block w-fit mx-auto mt-10 border px-10 py-2 rounded-md text-gray-600 transition hover:bg-gray-100"
+        className="block w-fit mx-auto mt-10 border border-orange-500 px-10 py-2 rounded-md text-orange-500 transition hover:bg-orange-500 hover:text-white"
         onClick={() => setCurrentCategory("smartphones")}
       >
         Explore more

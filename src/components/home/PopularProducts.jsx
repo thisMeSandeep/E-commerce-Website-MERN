@@ -57,7 +57,7 @@ const PopularProducts = () => {
             </div>
 
             {/* Products Grid */}
-            <div className="mt-10 grid grid-cols-2 gap-8 sm:gap-10 sm:grid-cols-3  lg:grid-cols-5 place-items-center">
+            <div className="mt-10 grid grid-cols-2 gap-4 sm:gap-8 sm:grid-cols-3  lg:grid-cols-5 place-items-center">
                 {loading
                     ? Array.from({ length: 10 }).map((_, index) => (
                         <ProductSkeleton key={index} />
@@ -69,7 +69,7 @@ const PopularProducts = () => {
 
             {/* Explore more button */}
             <button
-                className="block mx-auto mt-10 border px-10 py-2 rounded-md text-gray-600 transition hover:bg-gray-100"
+                className="block mx-auto mt-10 border border-orange-500 px-10 py-2 rounded-md text-orange-500 transition hover:bg-orange-500 hover:text-white"
                 onClick={() => navigate("/products")}
             >
                 Explore more

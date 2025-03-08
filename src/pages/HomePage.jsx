@@ -10,7 +10,7 @@ import FreeShipping from "../components/home/FreeShipping"
 
 const HomePage = () => {
   return (
-    <section className="container mt-5">
+    <section className="container mt-8">
       <HeroSlider />
       <PopularProducts />
       <ElectronicsProducts />

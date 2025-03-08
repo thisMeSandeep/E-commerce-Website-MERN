@@ -1,6 +1,6 @@
 const ProductSkeleton = () => {
     return (
-        <div role="status" className="min-w-[200px]  w-full p-4 border rounded-lg shadow-md animate-pulse">
+        <div role="status" className="min-w-[150px]  w-full p-4 border rounded-lg shadow-md animate-pulse">
             {/* Image Skeleton */}
             <div className="w-full h-40 bg-gray-300 rounded-md"></div>
 
