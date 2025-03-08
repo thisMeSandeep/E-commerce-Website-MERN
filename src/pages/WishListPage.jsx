@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
 import { Plus, X } from "lucide-react";
 import BreadCrumbs from "../components/commonComponents/BreadCrumbs";
+import wishlistImg from "../assets/wishlist.png"
 
 const WishListPage = () => {
   const [wishlist, setWishlist] = useState([]);
@@ -70,14 +71,11 @@ const WishListPage = () => {
       <div className="container mt-10 ">
         {/* Wishlist Section */}
         {wishlist.length === 0 ? (
-          <div className="flex flex-col items-center justify-center h-64">
-            <p className="text-gray-500">No items in Wishlist</p>
-            <Link
-              to="/products"
-              className="mt-4 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition"
-            >
-              Browse Products
-            </Link>
+          <div className="text-center text-gray-500 text-lg  flex flex-col items-center ">
+            {/* empty cart message */}
+            <img src={wishlistImg} alt="empty cart" className="max-w-[350px] object-cover " />
+            <h1 className="text-orange-500 text-xl">Your wishlist is empty!</h1>
+            <Link to="/products" className="mt-2 border border-orange-500 px-14 py-2 rounded-sm text-orange-500 font-semibold shadow-sm">Visit store</Link>
           </div>
         ) : (
           <div className="border py-4 rounded-md shadow">
