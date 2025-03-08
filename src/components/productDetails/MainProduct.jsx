@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { assets } from "../../assets/assets";
 import ProductDetails from "./ProductDetails";
-
+import { useAppContext } from "../../contexts/AppContext";
 import paymentMethodsImage from "../../assets/Payment_Method.png"
 import ActionsButtons from "./ActionsButtons";
 
@@ -9,6 +9,7 @@ const MainProduct = ({ product }) => {
     const [imageIndex, setImageIndex] = useState(0);
     const [zoom, setZoom] = useState(false);
     const [position, setPosition] = useState({ x: 50, y: 50 });
+    const { addItemToWishlist } = useAppContext();
 
 
     if (!product || !product.images) {
@@ -21,6 +22,24 @@ const MainProduct = ({ product }) => {
         const x = ((e.clientX - left) / width) * 100;
         const y = ((e.clientY - top) / height) * 100;
         setPosition({ x, y });
+    };
+
+    // Calculate discounted price
+    const discountPercentage = product.discountPercentage || 0;
+    const discountedPrice = product.price - (discountPercentage * product.price) / 100;
+
+    // wishlist data
+    const itemData = {
+        productId: product._id,
+        title: product.title,
+        thumbnail: product.thumbnail,
+        price: discountedPrice.toFixed(2),
+        stockStatus: product.stock > 0 ? "In Stock" : "Out of Stock",
+    };
+
+    // Add item to wishlist
+    const addItem = async () => {
+        await addItemToWishlist(itemData);
     };
 
     return (
@@ -44,7 +63,7 @@ const MainProduct = ({ product }) => {
                         }}
                     />
                     {/* wishlist button */}
-                    <button className="absolute top-2 right-2 bg-white p-2 rounded-full shadow-md hover:scale-105 ">
+                    <button onClick={addItem} className="absolute top-2 right-2 bg-white p-2 rounded-full shadow-md hover:scale-105 ">
                         <img
                             className="h-3 w-3"
                             src={assets.heart_icon}

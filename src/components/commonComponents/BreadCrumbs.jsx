@@ -23,7 +23,7 @@ const BreadCrumbs = ({ productName }) => {
                         {isLast ? (
                             <span className="capitalize text-gray-700">{displayText}</span>
                         ) : (
-                            <Link to={url} className="capitalize text-blue-600 hover:underline">
+                            <Link  className="capitalize text-gray-700 ">
                                 {displayText}
                             </Link>
                         )}

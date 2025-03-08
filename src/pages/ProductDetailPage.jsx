@@ -14,7 +14,7 @@ const ProductDetailPage = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
- 
+
 
   // Fetch product details
   const fetchProductDetails = async () => {
@@ -42,7 +42,7 @@ const ProductDetailPage = () => {
 
 
   return (
-    <div className="mt-28">
+    <div>
       <BreadCrumbs productName={product?.title} />
       <div className="container mt-10">
         {loading ? (

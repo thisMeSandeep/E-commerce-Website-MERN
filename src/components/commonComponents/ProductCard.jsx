@@ -20,7 +20,6 @@ const ProductCard = ({ product }) => {
 
     // Add item to wishlist
     const addItem = async () => {
-        console.log(itemData)
         await addItemToWishlist(itemData);
     };
 

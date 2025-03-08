@@ -1,4 +1,4 @@
-import { Minus, Plus, ShoppingCartIcon } from "lucide-react";
+import { Loader, Minus, Plus, ShoppingCartIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import axiosInstance from "../../utils/axiosInstance";
 import toast from "react-hot-toast";
@@ -8,11 +8,9 @@ import useCheckoutStore from "../../store/checkoutStore";
 
 const ActionsButtons = ({ product }) => {
     const [itemQuantity, setItemQuantity] = useState(product?.minimumOrderQuantity || 1);
-
     const setOrder = useCheckoutStore((state) => state.setOrder);
     const setCheckoutType = useCheckoutStore((state) => state.setCheckoutType)
-
-    // const discountedPrice = product.price - (product.discountPercentage * product.price / 100)
+    const [loading, setLoading] = useState(false)
 
     const navigate = useNavigate();
 
@@ -24,6 +22,7 @@ const ActionsButtons = ({ product }) => {
 
     // add item to cart
     const addItemToCart = async () => {
+        setLoading(true)
         const cartData = {
             quantity: itemQuantity,
             productId: product._id
@@ -36,6 +35,8 @@ const ActionsButtons = ({ product }) => {
             }
         } catch (err) {
             toast.error(err.response?.data?.message || "Something went wrong!");
+        } finally {
+            setLoading(false)
         }
     };
 
@@ -68,11 +69,11 @@ const ActionsButtons = ({ product }) => {
 
                 {/* Add to Cart Button */}
                 <button
-                    className="flex items-center justify-center gap-2 bg-orange-500 rounded px-10 py-2 text-white tracking-tighter flex-1 text-nowrap"
+                    className="flex items-center justify-center bg-orange-500 rounded px-10 py-2 text-white tracking-tighter flex-1 text-nowrap"
                     onClick={addItemToCart}
                 >
-                    <span>ADD TO CART</span>
-                    <ShoppingCartIcon className="size-5" />
+                    {loading ? <Loader className="size-5 text-white animate-spin" /> : (<div className="flex items-center justify-center gap-2"><span>ADD TO CART</span>
+                        <ShoppingCartIcon className="size-5" /></div>)}
                 </button>
             </div>
 
