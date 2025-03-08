@@ -74,7 +74,7 @@ const Avatar = () => {
                 </div>
 
                 {/* User Account Status */}
-                {user && <div className="w-full p-4 border rounded-lg shadow-md bg-white">
+                {user && <div className="w-full p-4 border rounded-lg  bg-white">
                     <h3 className="text-lg font-semibold text-gray-700">Account Information</h3>
 
                     {/* Account Status */}
@@ -98,7 +98,7 @@ const Avatar = () => {
                 </div>}
 
                 {/* email */}
-                <p className="w-full p-2 border outline-none shadow rounded-md text-gray-500 cursor-not-allowed">
+                <p className="w-full p-2 border outline-none  rounded-md text-gray-500 cursor-not-allowed">
                     {user?.email}
                 </p>
 
@@ -111,13 +111,13 @@ const Avatar = () => {
                             value={name}
                             name="name"
                             placeholder="Your name"
-                            className="w-full p-2 pr-4 border outline-none shadow rounded-md text-gray-500"
+                            className="w-full p-2 pr-4 border outline-none rounded-md text-gray-500"
                             onChange={(e) => setName(e.target.value)}
                         />
                         <Pencil className="text-gray-500 size-4 md:size-5 absolute right-2 top-[50%] -translate-y-[50%]" />
                     </div>
                 ) : (
-                    <p className="w-full p-2 border outline-none shadow rounded-md text-gray-500 cursor-text">
+                    <p className="w-full p-2 border outline-none  rounded-md text-gray-500 cursor-text">
                         {user?.name}
                     </p>
                 )}

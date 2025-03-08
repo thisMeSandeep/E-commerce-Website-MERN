@@ -1,7 +1,7 @@
 
 import { NavLink, Outlet } from "react-router-dom";
 import BreadCrumbs from "../components/commonComponents/BreadCrumbs";
-import {  HomeIcon, User } from "lucide-react";
+import { HomeIcon, User } from "lucide-react";
 
 
 const UserProfile = () => {
@@ -9,18 +9,23 @@ const UserProfile = () => {
 
 
   return (
-    <div className="mt-[120px]">
+    <div >
       <BreadCrumbs />
       <h1 className="text-gray-600  text-xl font-semibold  py-4 md:py-5 px-6 sm:px-20 lg:px-32  border-b">ACCOUNT SETTING</h1>
-      <div className="container mt-10">
-        {/* nested links */}
-        <div className="flex items-start gap-2">
-          <ul className="flex flex-col gap-5">
+
+
+      <div className="container mt-8">
+
+
+        <div className="flex flex-col  items-start gap-2">
+
+          {/* nested links */}
+          <ul className="flex items-center gap-5 ">
             <NavLink
               to="/profile"
               end
               className={({ isActive }) =>
-                `py-1.5 px-2 rounded-sm flex items-center gap-2 text-gray-600 font-medium border ${isActive ? "border-r-orange-500 border-r-4 " : ""
+                `py-1.5 px-2 rounded-sm flex items-center gap-2 text-gray-600 font-medium border ${isActive ? "border-b-orange-500 border-b-4 " : ""
                 }`
               }
             >
@@ -32,7 +37,7 @@ const UserProfile = () => {
               to="address"
               end
               className={({ isActive }) =>
-                `py-1.5 px-2 rounded-sm flex items-center gap-2 text-gray-600 font-medium border ${isActive ? "border-r-orange-500 border-r-4 " : ""
+                `py-1.5 px-2 rounded-sm flex items-center gap-2 text-gray-600 font-medium border ${isActive ? "border-b-orange-500 border-b-4 " : ""
                 }`
               }
             >
@@ -43,9 +48,12 @@ const UserProfile = () => {
 
 
           </ul>
-          <div className="flex-1  shadow-sm px-2">
+
+          <div className="flex-1 w-full  px-2">
             <Outlet />
           </div>
+
+
         </div>
       </div>
     </div>
