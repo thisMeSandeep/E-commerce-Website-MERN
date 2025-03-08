@@ -5,7 +5,7 @@ const ReviewTab = ({ reviews }) => {
 
 
     return (
-        <div className="p-5 md:p-8 bg-white rounded-lg shadow-md">
+        <div className="p-5 md:p-8 bg-white rounded">
             <h2 className="text-lg md:text-xl font-semibold mb-4 border-b pb-2">
                 Customer Reviews ({reviews.length})
             </h2>
