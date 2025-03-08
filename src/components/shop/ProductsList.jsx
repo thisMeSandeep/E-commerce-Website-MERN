@@ -116,7 +116,7 @@ const ProductsList = () => {
 
       {/* Pagination */}
       {totalPages > 1 && !loading && products.length > 0 && (
-        <div className="my-5 flex items-start gap-2 overflow-x-scroll">
+        <div className="my-5 flex items-start md:justify-center  gap-2 overflow-x-scroll no-scrollbar">
           {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => (
             <button
               key={pageNum}
