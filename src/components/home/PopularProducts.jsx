@@ -57,7 +57,7 @@ const PopularProducts = () => {
             </div>
 
             {/* Products Grid */}
-            <div className="mt-10 grid grid-cols-2 gap-4 sm:gap-8 sm:grid-cols-3  lg:grid-cols-5 place-items-center">
+            <div className="mt-10 flex items-center gap-5 overflow-x-scroll no-scrollbar">
                 {loading
                     ? Array.from({ length: 10 }).map((_, index) => (
                         <ProductSkeleton key={index} />

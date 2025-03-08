@@ -6,6 +6,8 @@ import FeaturedProducts from "../components/home/FeaturedProducts"
 import Gaming from "../components/home/Gaming"
 import Newsletter from "../components/commonComponents/Newletter"
 import FreeShipping from "../components/home/FreeShipping"
+import LatestProducts from "../components/home/LatestProducts"
+import Bikes from "../components/home/Bikes"
 
 
 const HomePage = () => {
@@ -13,7 +15,9 @@ const HomePage = () => {
     <section className="container mt-8">
       <HeroSlider />
       <PopularProducts />
+      <LatestProducts />
       <ElectronicsProducts />
+      <Bikes />
       <ExploreCategories />
       <FreeShipping />
       <FeaturedProducts />
