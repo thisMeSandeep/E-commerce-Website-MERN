@@ -38,25 +38,27 @@ const App = () => {
       <Toaster />
       <Navbar />
       <ScrollToTop />
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="*" element={<ErrorPage />} />
-        <Route path="products" element={<ShopPage />} />
-        <Route path="/about" element={<AboutPage />} />
-        <Route path="/contact" element={<ContactPage />} />
-        <Route path="/login" element={<SignInPage />} />
-        <Route path="/register" element={<SignUpPage />} />
-        <Route path="/product-details/:pid" element={<ProductDetailPage />} />
-        <Route path="/cart" element={<ShoppingCart />} />
-        <Route path="/wishlist" element={<WishListPage />} />
-        <Route path="/profile" element={<UserProfile />}>
-          <Route index element={<Avatar />} />
-          <Route path="address" element={<Address />} />
-        </Route>
-        <Route path="/checkout" element={<CheckoutPage />} />
-        <Route path="/orders" element={<MyOrdersPage />} />
-        <Route path="/checkout-success" element={<CheckoutSuccessPage />} />
-      </Routes >
+      <div className="mt-[120px] md:mt-[140px]">
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="*" element={<ErrorPage />} />
+          <Route path="products" element={<ShopPage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/contact" element={<ContactPage />} />
+          <Route path="/login" element={<SignInPage />} />
+          <Route path="/register" element={<SignUpPage />} />
+          <Route path="/product-details/:pid" element={<ProductDetailPage />} />
+          <Route path="/cart" element={<ShoppingCart />} />
+          <Route path="/wishlist" element={<WishListPage />} />
+          <Route path="/profile" element={<UserProfile />}>
+            <Route index element={<Avatar />} />
+            <Route path="address" element={<Address />} />
+          </Route>
+          <Route path="/checkout" element={<CheckoutPage />} />
+          <Route path="/orders" element={<MyOrdersPage />} />
+          <Route path="/checkout-success" element={<CheckoutSuccessPage />} />
+        </Routes >
+      </div>
       {/* <Footer /> */}
     </>
   )

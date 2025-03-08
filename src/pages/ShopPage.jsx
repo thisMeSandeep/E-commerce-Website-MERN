@@ -4,7 +4,7 @@ import BreadCrumbs from "../components/commonComponents/BreadCrumbs"
 
 const ShopPage = () => {
   return (
-    <div className="mt-24 md:mt-28 relative">
+    <div className="relative">
       <BreadCrumbs />
 
       <div className="container flex items-start mt-5 h-screen ">

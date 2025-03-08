@@ -25,7 +25,7 @@ const ProductCard = ({ product }) => {
     };
 
     return (
-        <div className="flex flex-col items-start gap-0.5  relative min-w-[180px] w-full border shadow rounded-lg">
+        <div className="flex flex-col items-start gap-0.5  relative min-w-[150px] w-full border shadow rounded-lg">
              
              {/* discounte % */}
              <p className="bg-orange-400 absolute top-2 left-2 text-[12px] font-medium text-white px-1 py-1.5 rounded-xl z-10">{Math.trunc(discountPercentage)}%</p>
