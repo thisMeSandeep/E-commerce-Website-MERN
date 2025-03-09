@@ -11,8 +11,12 @@ const SignInPage = () => {
 
   const loginUser = useUserStore((state) => state.loginUser);
   const loginStatus = useUserStore((state) => state.loginStatus);
+  const user = useUserStore((state) => state.user);
   const error = useUserStore((state) => state.error);
 
+  if (user) {
+    navigate(-1)
+  }
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
