@@ -105,7 +105,7 @@ const ShoppingCart = () => {
                         </Link>
                       </td>
                       <td className="p-3">{item.productDetails.title}</td>
-                      <td className="p-3">₹{item.productDetails.price.toFixed(2)}</td>
+                      <td className="p-3">${item.productDetails.price.toFixed(2)}</td>
                       <td className="p-3">${(
                         item.productDetails.price -
                         (item.productDetails.discountPercentage * item.productDetails.price) / 100
