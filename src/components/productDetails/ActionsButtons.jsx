@@ -4,13 +4,15 @@ import axiosInstance from "../../utils/axiosInstance";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import useCheckoutStore from "../../store/checkoutStore";
+import useUserStore from "../../store/userStore";
 
 
 const ActionsButtons = ({ product }) => {
     const [itemQuantity, setItemQuantity] = useState(product?.minimumOrderQuantity || 1);
     const setOrder = useCheckoutStore((state) => state.setOrder);
     const setCheckoutType = useCheckoutStore((state) => state.setCheckoutType)
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(false);
+    const user = useUserStore((state) => state.user)
 
     const navigate = useNavigate();
 
@@ -22,6 +24,11 @@ const ActionsButtons = ({ product }) => {
 
     // add item to cart
     const addItemToCart = async () => {
+        if (!user) {
+            navigate('/login');
+            return;
+        }
+
         setLoading(true)
         const cartData = {
             quantity: itemQuantity,
@@ -42,6 +49,16 @@ const ActionsButtons = ({ product }) => {
 
     //handle buy now
     const handleBuyNow = () => {
+        if (!user) {
+            navigate('/login');
+            return;
+        }
+
+        if (product.stock === 0) {
+            toast.error('Item out of stock');
+            return
+        }
+
         const orderData = [{
             product,
             quantity: itemQuantity

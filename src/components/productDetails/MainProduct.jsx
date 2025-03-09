@@ -4,12 +4,16 @@ import ProductDetails from "./ProductDetails";
 import { useAppContext } from "../../contexts/AppContext";
 import paymentMethodsImage from "../../assets/Payment_Method.png"
 import ActionsButtons from "./ActionsButtons";
+import useUserStore from "../../store/userStore";
+import { useNavigate } from "react-router-dom";
 
 const MainProduct = ({ product }) => {
     const [imageIndex, setImageIndex] = useState(0);
     const [zoom, setZoom] = useState(false);
     const [position, setPosition] = useState({ x: 50, y: 50 });
     const { addItemToWishlist } = useAppContext();
+    const user = useUserStore((state) => state.user);
+    const navigate = useNavigate();
 
 
     if (!product || !product.images) {
@@ -39,6 +43,10 @@ const MainProduct = ({ product }) => {
 
     // Add item to wishlist
     const addItem = async () => {
+        if (!user) {
+            navigate('/login');
+            return;
+        }
         await addItemToWishlist(itemData);
     };
 
