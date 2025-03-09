@@ -63,7 +63,7 @@ const MyOrdersPage = () => {
             <div className="overflow-x-auto no-scrollbar">
               <table className="w-full border border-gray-300 rounded-lg overflow-hidden text-center">
                 <thead>
-                  <tr className="bg-orange-500 text-white text-sm uppercase">
+                  <tr className="bg-orange-500 text-white text-sm uppercase text-nowrap">
                     <th className="px-4 py-2">Product</th>
                     <th className="px-4 py-2">Title</th>
                     <th className="px-4 py-2">Quantity</th>

@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import useUserStore from "./store/userStore";
 
 import Navbar from "./components/commonComponents/Navbar";
+import Footer from "./components/commonComponents/Footer.jsx";
 import ScrollToTop from "./utils/ScrollToTop.jsx";
 import ProtectedRoutes from "./utils/ProtectedRoutes.jsx";
 
@@ -62,6 +63,7 @@ const App = () => {
           </Route>
         </Routes>
       </div>
+      <Footer />
     </>
   );
 };
