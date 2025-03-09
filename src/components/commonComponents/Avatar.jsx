@@ -4,7 +4,7 @@ import useUserStore from "../../store/userStore";
 import userDummyImage from "../../assets/userDummy.png";
 import axiosInstance from "../../utils/axiosInstance";
 import toast from "react-hot-toast";
-import { Pencil } from "lucide-react";
+import { Loader, Pencil } from "lucide-react";
 
 const Avatar = () => {
     const [isEdit, setIsEdit] = useState(false);
@@ -13,6 +13,7 @@ const Avatar = () => {
     const getUserData = useUserStore((state) => state.getUserData)
     const [name, setName] = useState(user?.name);
     const [preview, setPreview] = useState(null);
+    const [loading, setLoading] = useState(false);
 
 
     useEffect(() => {
@@ -27,6 +28,7 @@ const Avatar = () => {
     const handleUpdateProfile = async (e) => {
         e.preventDefault();
         // create form data
+        setLoading(true)
         const formData = new FormData();
         formData.append('avatar', image);
         formData.append('name', name);
@@ -40,6 +42,8 @@ const Avatar = () => {
         } catch (err) {
             console.log(err.response.data.message);
             toast.error(err?.response?.data?.message)
+        } finally {
+            setLoading(false)
         }
     };
 
@@ -125,11 +129,11 @@ const Avatar = () => {
                 {/* Update Profile Button */}
                 {isEdit && (
                     <button
-                        className="px-10  py-2 bg-orange-500 text-white font-semibold rounded-md mt-10"
+                        className="px-10  py-2 bg-orange-500 text-white font-semibold rounded-md mt-10 flex items-center justify-center"
                         type="button"
                         onClick={handleUpdateProfile}
                     >
-                        Update profile
+                        {loading?<Loader className="size-5 animate-spin"/>:"Update profile"}
                     </button>
                 )}
             </form>
