@@ -71,7 +71,7 @@ const ShoppingCart = () => {
         {cartItems.length === 0 ? (
           <div className="text-center text-gray-500 text-lg  flex flex-col items-center ">
             {/* empty cart message */}
-            <img src={emptyCartImage} alt="empty cart" className="max-w-[500px] object-cover " />
+            <img src={emptyCartImage} alt="empty cart" className="max-w-[350px] object-cover " />
             <h1 className="text-orange-500 text-xl">Empty cart!</h1>
             <Link to="/products" className="mt-2 border border-orange-500 px-14 py-2 rounded-sm text-orange-500 font-semibold shadow-sm">Visit store</Link>
           </div>

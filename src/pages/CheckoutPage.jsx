@@ -38,12 +38,12 @@ const CheckoutPage = () => {
       <BreadCrumbs />
       <div className="container my-10 flex flex-col lg:flex-row items-start justify-center gap-5">
         {!selectedAddress ? (
-          <div className="flex flex-col gap-8 items-center justify-center">
+          <div className="flex flex-col gap-8 items-center justify-center w-full h-[500px]">
             <img src={addressImg} alt="address" className="w-[200px]" />
             <Link to="/profile/address" className="border border-orange-500 px-10 py-2 rounded-sm text-orange-500 font-medium ">Choose an address to deliver</Link>
           </div>
         ) : (
-          <div className="w-full">
+          <div className="w-full lg:w-[70%]">
             {/* Billing Information */}
             <div>
               <h1 className="text-gray-700 text-xl font-medium">Billing Information</h1>
@@ -87,16 +87,23 @@ const CheckoutPage = () => {
             </Link>
 
             {/* help */}
-            <div className="relative ">
-              <CircleHelp onClick={() => setShowModel(prev => !prev)} className="text-white animate-bounce bg-orange-500 rounded-full mt-5 cursor-pointer hover:scale-110 transition-all" />
-              <div className={`bg-orange-500 text-white z-10 absolute  left-10 -translate-y-[50%]  px-10 py-4  rounded-md shadow-xl text-center ${showModel ? "block" : "hidden"}`}>
-                <p>Online payment is only for demo purpose</p>
-                <p>Enter following detials in Card</p>
-                <ul className="mt-2">
-                  <li>Card Number:4111 <span>1111</span> <span>1111</span> <span>1111</span></li>
-                  <li>Any future date :12/25</li>
-                  <li>3 digit random CVV</li>
-                  <li>4 digit random OTP</li>
+            <div className="relative">
+              <CircleHelp
+                onClick={() => setShowModel((prev) => !prev)}
+                className="text-white size-5 animate-bounce bg-orange-500 rounded-full mt-5  cursor-pointer hover:scale-110 transition-all shadow-lg"
+              />
+              <div
+                className={`bg-orange-600 text-white z-10 absolute left-12 -translate-y-1/2 px-6 py-4 rounded-lg shadow-2xl text-center w-64 transition-all duration-300 ${showModel ? "opacity-100 scale-100 visible" : "opacity-0 scale-95 invisible"
+                  }`}
+              >
+                <h3 className="font-semibold text-lg">Demo Payment Info</h3>
+                <p className="text-sm mt-1 opacity-90">Use the following details:</p>
+                <ul className="mt-2 text-sm space-y-1">
+                  <li className="font-medium">Card: 4111 1111 1111 1111</li>
+                  <li>Expiry: <span className="font-medium">Any future date (e.g. 12/25)</span></li>
+                  <li>CVV: <span className="font-medium">Any 3 digits</span></li>
+                  <li>Name: <span className="font-medium">Any Random name</span></li>
+                  <li>OTP: <span className="font-medium">Any 4 digits</span></li>
                 </ul>
               </div>
             </div>

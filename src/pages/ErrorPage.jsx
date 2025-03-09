@@ -4,7 +4,7 @@ import errorPageImage from "../assets/errorPage.png";
 
 const ErrorPage = () => {
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-gray-100 p-4 ">
+    <div className="flex flex-col items-center justify-center h-screen bg-gray-100 p-4 pb-14 ">
       <div className="text-center p-6 max-w-md w-full ">
         <img
           src={errorPageImage}

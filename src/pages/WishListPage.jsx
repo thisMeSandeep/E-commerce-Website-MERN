@@ -2,12 +2,13 @@ import { useEffect, useState } from "react";
 import axiosInstance from "../utils/axiosInstance";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
-import { Plus, X } from "lucide-react";
+import { Loader, Plus, X } from "lucide-react";
 import BreadCrumbs from "../components/commonComponents/BreadCrumbs";
 import wishlistImg from "../assets/wishlist.png"
 
 const WishListPage = () => {
   const [wishlist, setWishlist] = useState([]);
+  const [loading, setLoading] = useState(false)
 
   // Fetch wishlist items
   useEffect(() => {
@@ -41,6 +42,7 @@ const WishListPage = () => {
 
   // Add item to cart
   const addItemToCart = async (id) => {
+    setLoading(true)
     try {
       const { data } = await axiosInstance.get(`/api/products/get-products/${id}`);
       if (!data.success) {
@@ -60,15 +62,17 @@ const WishListPage = () => {
       }
     } catch (err) {
       toast.error(err.response?.data?.message || "Something went wrong!");
+    } finally {
+      setLoading(false)
     }
   };
 
   return (
-    <div className="mt-[120px]">
+    <div className="">
       {/* Breadcrumbs */}
       <BreadCrumbs />
 
-      <div className="container mt-10 ">
+      <div className="container mt-5 ">
         {/* Wishlist Section */}
         {wishlist.length === 0 ? (
           <div className="text-center text-gray-500 text-lg  flex flex-col items-center ">
@@ -103,8 +107,8 @@ const WishListPage = () => {
                   {item.stockStatus}
                 </p>
                 <div className="flex gap-5">
-                  <button onClick={() => addItemToCart(item.productId)} className="bg-orange-500 text-white px-3 py-1 rounded-md hover:bg-blue-600 transition hidden md:block">
-                    Add to Cart
+                  <button onClick={() => addItemToCart(item.productId)} className="bg-orange-500 text-white px-3 py-1 rounded-md hover:bg-orange-600 transition hidden md:flex items-center justify-center">
+                    {loading ? <Loader className="text-white size-5 animate-spin"/> : "Add to Cart"}
                   </button>
                   <button onClick={() => addItemToCart(item.productId)} className="bg-orange-500 rounded-full p-1 md:hidden">
                     <Plus className="text-white " />

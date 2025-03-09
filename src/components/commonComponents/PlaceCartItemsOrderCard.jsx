@@ -2,11 +2,14 @@ import { Link, useNavigate } from "react-router-dom";
 import useCheckoutStore from "../../store/checkoutStore";
 import axiosInstance from "../../utils/axiosInstance";
 import toast from "react-hot-toast";
+import { useState } from "react";
+import { Loader } from "lucide-react";
 
 const PlaceCartItemsOrderCard = ({ paymentType }) => {
 
     const cartorder = useCheckoutStore((state) => state.order);
     const navigate = useNavigate()
+    const [loading, setLoading] = useState(false);
 
     // data  send to backend
     const orderDetails = cartorder.map((item) => {
@@ -57,6 +60,7 @@ const PlaceCartItemsOrderCard = ({ paymentType }) => {
 
     // place order
     const handlePlaceOrder = async () => {
+        setLoading(true)
         if (paymentType === "COD") {
             try {
                 const { data } = await axiosInstance.post("/api/order/cod-order", { order: orderDetails });
@@ -66,9 +70,12 @@ const PlaceCartItemsOrderCard = ({ paymentType }) => {
                 }
             } catch (err) {
                 toast.error(err?.response?.data?.message)
+            } finally {
+                setLoading(false)
             }
 
         } else {
+            setLoading(true)
             try {
                 const { data } = await axiosInstance.post("/api/order/create-order", { amount });
 
@@ -81,6 +88,8 @@ const PlaceCartItemsOrderCard = ({ paymentType }) => {
             } catch (err) {
                 console.log(err.message);
                 toast.error("Failed to initialize payment");
+            } finally {
+                setLoading(false)
             }
         }
     }
@@ -123,9 +132,9 @@ const PlaceCartItemsOrderCard = ({ paymentType }) => {
             {/* Proceed to Checkout Button */}
             <button
                 onClick={handlePlaceOrder}
-                className="inline-block text-center w-full mt-4 bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 rounded-lg transition"
+                className="flex items-center justify-center text-center w-full mt-4 bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 rounded-lg transition"
             >
-                Place Order →
+               {loading?<Loader className="text-white size-5 animate-spin"/>:" Place Order →"}
             </button>
 
             {/* Coupon Code Section for design purpose only */}
@@ -135,7 +144,7 @@ const PlaceCartItemsOrderCard = ({ paymentType }) => {
                     <input
                         type="text"
                         placeholder="Enter coupon"
-                        className="w-full px-3 py-2 border rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                        className="w-full px-3 py-2 border rounded-l-lg focus:outline-none text-gray-600"
                     />
                     <button
                         className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-r-lg transition"

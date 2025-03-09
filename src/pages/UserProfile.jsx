@@ -14,13 +14,13 @@ const UserProfile = () => {
       <h1 className="text-gray-600  text-xl font-semibold  py-4 md:py-5 px-6 sm:px-20 lg:px-32  border-b">ACCOUNT SETTING</h1>
 
 
-      <div className="container mt-8">
+      <div className="container ">
 
 
         <div className="flex flex-col  items-start gap-2">
 
           {/* nested links */}
-          <ul className="flex items-center gap-5 ">
+          <ul className="flex items-center gap-5 my-5 ">
             <NavLink
               to="/profile"
               end
@@ -30,7 +30,7 @@ const UserProfile = () => {
               }
             >
               <User className="text-orange-500" />
-              <span className="hidden md:inline">Profile</span>
+              <span>Profile</span>
             </NavLink>
 
             <NavLink
@@ -42,7 +42,7 @@ const UserProfile = () => {
               }
             >
               <HomeIcon className="text-orange-500" />
-              <span className="hidden md:inline">Manage Address</span>
+              <span>Manage Address</span>
             </NavLink>
 
 

@@ -3,10 +3,13 @@ import { Link } from "react-router-dom";
 import axiosInstance from "../../utils/axiosInstance";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { Loader } from "lucide-react";
+import { useState } from "react";
 
 const PlaceSingleOrderCard = ({ paymentType }) => {
     const order = useCheckoutStore((state) => state.order);
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(false)
 
     // Get order details of single product
     const details = order[0];
@@ -57,6 +60,7 @@ const PlaceSingleOrderCard = ({ paymentType }) => {
 
     // Handle order placement
     const handlePlaceOrder = async () => {
+        setLoading(true)
         if (paymentType === "COD") {
             try {
                 const { data } = await axiosInstance.post("/api/order/cod-order", { order: orderDetails });
@@ -67,8 +71,11 @@ const PlaceSingleOrderCard = ({ paymentType }) => {
                 }
             } catch (err) {
                 toast.error(err?.response?.data?.message || "Order placement failed");
+            } finally {
+                setLoading(false)
             }
         } else {
+            setLoading(true)
             try {
                 const { data } = await axiosInstance.post("/api/order/create-order", { amount });
 
@@ -81,6 +88,8 @@ const PlaceSingleOrderCard = ({ paymentType }) => {
             } catch (err) {
                 console.log(err.message);
                 toast.error("Failed to initialize payment");
+            } finally {
+                setLoading(false)
             }
         }
     };
@@ -122,11 +131,11 @@ const PlaceSingleOrderCard = ({ paymentType }) => {
 
             <button
                 onClick={handlePlaceOrder}
-                className="w-full mt-4 bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 rounded-lg transition"
+                className="w-full flex items-center justify-center mt-4 bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 rounded-lg transition"
             >
-                Place Order →
-            </button>
-        </div>
+                {loading ? <Loader className="size-5 animate-spin"/> :"Place Order →"}
+        </button>
+        </div >
     );
 };
 

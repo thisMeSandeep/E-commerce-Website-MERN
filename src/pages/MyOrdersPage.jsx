@@ -79,7 +79,7 @@ const MyOrdersPage = () => {
                   {orders.map((order) => (
                     <tr key={order._id} className="border-t text-gray-700 text-sm">
                       <td className="px-4 py-2">
-                        <Link to={`/order-details/${order.productId}`}>
+                        <Link to={`/product-details/${order.productId}`}>
                           <img src={order.productDetails.thumbnail} alt="" className="w-12 h-12 rounded-md object-cover" />
                         </Link>
                       </td>
