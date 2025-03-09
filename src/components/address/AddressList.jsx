@@ -33,7 +33,7 @@ const AddressList = () => {
                     {addresses.map((address) => (
                         <div
                             key={address._id}
-                            className={`p-4 border rounded-md shadow-sm ${selectedAddress?._id === address._id ? "border-orange-500 bg-orange-50" : ""
+                            className={`p-4 border rounded-md shadow-sm ${selectedAddress?._id === address._id ? "border-orange-500 " : ""
                                 }`}
                         >
                             <div className="flex justify-between items-center">
