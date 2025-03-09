@@ -1,12 +1,14 @@
 import { createContext, useContext } from "react";
 import axiosInstance from "../utils/axiosInstance";
 import toast from "react-hot-toast";
-
 const AppContext = createContext();
 
 export const AppContextProvider = ({ children }) => {
     // Function to add items to wishlist
     const addItemToWishlist = async (itemData) => {
+
+            
+
         try {
             const { data } = await axiosInstance.post("/api/wishlist/add-Items", itemData);
             if (data.success) {

@@ -1,9 +1,12 @@
 import { assets } from "../../assets/assets";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAppContext } from "../../contexts/AppContext";
+import useUserStore from "../../store/userStore";
 
 const ProductCard = ({ product }) => {
     const { addItemToWishlist } = useAppContext();
+    const user = useUserStore((state) => state.user);
+    const navigate = useNavigate();
 
     // Calculate discounted price
     const discountPercentage = product.discountPercentage || 0;
@@ -20,14 +23,18 @@ const ProductCard = ({ product }) => {
 
     // Add item to wishlist
     const addItem = async () => {
+        if (!user) {
+            navigate("/login");
+            return;
+        }
         await addItemToWishlist(itemData);
     };
 
     return (
         <div className="flex flex-col items-start gap-0.5  relative min-w-[160px] w-full border shadow rounded-lg">
-             
-             {/* discounte % */}
-             <p className="bg-orange-400 absolute top-2 left-2 text-[12px] font-medium text-white px-1 py-1.5 rounded-xl z-10">{Math.trunc(discountPercentage)}%</p>
+
+            {/* discounte % */}
+            <p className="bg-orange-400 absolute top-2 left-2 text-[12px] font-medium text-white px-1 py-1.5 rounded-xl z-10">{Math.trunc(discountPercentage)}%</p>
 
             {/* Product Image */}
             <Link to={`/product-details/${product._id}`} className="cursor-pointer group relative bg-gray-500/10  w-full h-45 flex items-center justify-center overflow-hidden">

@@ -8,7 +8,7 @@ const ShopPage = () => {
       <BreadCrumbs />
 
       <div className="container  lg:flex items-start gap-5 mt-5 overflow-x-hidden  ">
-        <div className="w-[300px]">
+        <div className="w-[300px] ">
           <SideBar />
         </div>
         <div className="w-full">

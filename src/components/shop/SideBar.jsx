@@ -74,7 +74,6 @@ const SideBar = () => {
     if (!range.all && range.max) setPriceValue([range.min, range.max]);
   }, []);
 
-
   return (
     <div className=" hidden lg:block  pb-4">
       <h1 className="text-gray-900 font-medium">CATEGORIES</h1>
