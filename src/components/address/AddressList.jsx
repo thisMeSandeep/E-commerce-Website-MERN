@@ -21,7 +21,7 @@ const AddressList = () => {
     };
 
     return (
-        <div className="max-w-3xl mx-auto mt-10 p-6 bg-white shadow-md rounded-lg">
+        <div className="max-w-3xl mx-auto mt-10 p-6 bg-white rounded-sm">
             <h2 className="text-xl font-semibold text-gray-600 mb-6">Saved Addresses</h2>
 
             {addresses.length === 0 ? (
