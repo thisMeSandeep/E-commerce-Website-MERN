@@ -32,7 +32,7 @@ const SignInPage = () => {
 
   return (
     <div className="px-4  py-24 flex items-center justify-center">
-      <div className="w-full max-w-md bg-white p-8 rounded-2xl shadow-lg">
+      <div className="w-full max-w-md bg-white p-8 rounded-2xl shadow-lg border">
         <h2 className="text-2xl text-gray-500 font-semibold text-center mb-6">Sign In</h2>
 
         {/* Display error */}
